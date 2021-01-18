@@ -7,7 +7,7 @@ Welcome to my blog!
 :slug: welcome
 :author: Craig
 :summary: Welcome document
-:status: hidden
+:status: draft
 
 Welcome to my blog.
 This is a short page just to show how to put up a static page.

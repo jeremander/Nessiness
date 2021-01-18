@@ -36,12 +36,9 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (
-    ('Projects', '#'),
-    ('Blog', '#'),
-    ('About Me', '#'),
-    ('Links', '#')
-)
+LINKS = (('Home', SITEURL),)
+
+PAGES_SORT_ATTRIBUTE = 'category'
 
 # Social widget
 SOCIAL = (

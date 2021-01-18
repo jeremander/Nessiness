@@ -55,18 +55,30 @@ a {
   color: @link-color;
   text-decoration: none;
 
+  &.active-link {
+    color: @sidebar-active-link-color;
+    // text-shadow: 1px 1px 8px white;
+  }
+
   &:hover {
       color: @link-hover-color;
   }
 }
 
 .section-header {
+    margin-top: 2rem;
     a {
         color: @section-header-color;
         &:hover {
             color: @section-header-hover-color;
         }
     }
+}
+
+.page-header {
+    text-align: center;
+    margin-top: 2rem;
+    color: @page-header-color;
 }
 
 hr {
@@ -86,6 +98,9 @@ aside {
   background-color: @sidebar-bg;
   color: @sidebar-text-color;
   text-align: center;
+//   min-width: 16em;
+//   max-width: 18em;
+    // width: 16em;
 
   a {
     color: @sidebar-link-color;
@@ -146,6 +161,8 @@ aside {
 }
 
 main {
+    // min-height: 100%;
+
   nav {
     text-align: center;
     text-transform: uppercase;
@@ -186,6 +203,7 @@ main {
   }
 
   article {
+    flex: 1;
     margin: 0 8% 2% 8%;
 
     header {
@@ -308,7 +326,10 @@ main {
   }
 
   footer {
-    padding-top: 4px;
+    margin-top: 2.5em;
+    width: 100%;
+    align-self: flex-end;
+    padding: 5px 0px;
     border-top: @footer-border-color 1px solid;
 
     p {
@@ -316,7 +337,11 @@ main {
       text-align: center;
       padding: 0 40px 0 40px;
       color: @footer-text-color;
-      font-size: 11px;
+      font-size: 12px;
+
+      &.footer-pelican {
+        font-size: 11px;
+      }
     }
 
     // Flex credits and theme selection separator
@@ -589,18 +614,16 @@ ul.social {
 
   main {
     width: 75vw;
-    height: 100vh;
+    // height: 100vh;
+    height: 100%;
     position: absolute;
+    display: flex;
+    flex-direction: column;
     top: 0;
     left: 25vw;
     overflow-x: hidden;
 
     article {
-
-      &.single {
-        min-height: 80vh;
-      }
-
       ul.list {
         li {
           padding: 2px;

@@ -69,9 +69,10 @@
           href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/pygments/{{ PYGMENTS_STYLE|default('github') }}.min.css">
   {% endif %}
 
+  <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/jquery.min.js"></script>
+
   {% if PLUGINS and 'tipue_search' in PLUGINS %}
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/jquery.min.js"></script>
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/tipuesearch.min.js"></script>
+      <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/tipuesearch.min.js"></script>
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/tipuesearch.min.js"></script>
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/tipuesearch_set.min.js"></script>
     <script src="{{ SITEURL }}/tipuesearch_content.js"></script>
@@ -157,6 +158,10 @@
   {% if GOOGLE_TAG_MANAGER %}
     {% include "partial/gtm_noscript.html" %}
   {% endif %}
+  <nav class="topbar">
+
+  </nav>
+
   <aside>
     <div>
       <a href="{{ SITEURL }}">
@@ -198,6 +203,12 @@
             {% set pages = pages|sort(attribute=PAGES_SORT_ATTRIBUTE) %}
           {%- endif %}
 
+          {% for name, link in LINKS %}
+            <li>
+              <a target="{{ get_target(link) }}" href="{{ link }}" >{{ name }}</a>
+            </li>
+          {% endfor %}
+
           {% if DISPLAY_PAGES_ON_MENU %}
             {% for page in pages %}
               <li>
@@ -209,11 +220,6 @@
             {% endfor %}
           {% endif %}
 
-          {% for name, link in LINKS %}
-            <li>
-              <a target="{{ get_target(link) }}" href="{{ link }}" >{{ name }}</a>
-            </li>
-          {% endfor %}
         </ul>
       </nav>
       {% endif %}
@@ -305,6 +311,9 @@
       });
     </script>
   {% endif %}
+
+  <!-- Main JS code -->
+  <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/main.js"></script>
 
   {% block additional_js %}{% endblock %}
 </body>
