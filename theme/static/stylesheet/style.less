@@ -98,9 +98,6 @@ aside {
   background-color: @sidebar-bg;
   color: @sidebar-text-color;
   text-align: center;
-//   min-width: 16em;
-//   max-width: 18em;
-    // width: 16em;
 
   a {
     color: @sidebar-link-color;
@@ -118,18 +115,24 @@ aside {
     font-size: 1.1em;
     font-family: @serif;
     font-style: italic;
+    margin: 0.5em 0em;
+
     @media screen and (min-width: 768px) {
-        margin-bottom: 1.25em;
+        margin: 1em 0em;
     }
   }
 
   div {
-    padding: 20px;
+    padding: 15px 20px;
     margin: 0;
 
-    img {
+    img.sitelogo {
       border-radius: 50%;
-      max-width: 140px;
+      max-width: 120px;
+
+      @media screen and (min-width: 768px) {
+          max-width: 140px;
+      }
     }
 
     h1 {
@@ -161,7 +164,6 @@ aside {
 }
 
 main {
-    // min-height: 100%;
 
   nav {
     text-align: center;
@@ -447,7 +449,7 @@ ul.list {
 
 ul.social {
   font-size: 1.6em;
-  padding-top: 20px;
+  padding-top: 0.25em;
 
   li {
     display: inline;
@@ -587,8 +589,8 @@ ul.social {
 
 @media screen and (min-width: 768px) {
   aside {
-    width: 25vw;
-    height: 100vh;
+    width: 16em;
+    height: 110vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -613,14 +615,13 @@ ul.social {
   }
 
   main {
-    width: 75vw;
-    // height: 100vh;
+    width: calc(~'100% - 16em');
     height: 100%;
     position: absolute;
     display: flex;
     flex-direction: column;
     top: 0;
-    left: 25vw;
+    left: 16em;
     overflow-x: hidden;
 
     article {
