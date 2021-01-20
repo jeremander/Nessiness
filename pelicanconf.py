@@ -26,7 +26,7 @@ PATH = 'content'
 # inside of content directory
 STATIC_PATHS = ['images']
 
-TEMPLATE_PAGES = {'projects.html': 'projects.html'}
+TEMPLATE_PAGES = {'pages/projects.html': 'pages/projects.html'}
 
 TIMEZONE = 'America/New_York'
 
@@ -40,7 +40,7 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Home', SITEURL),)
+LINKS = (('Home', SITEURL), ('Projects', f'{SITEURL}/pages/projects.html'))
 
 PAGES_SORT_ATTRIBUTE = 'category'
 

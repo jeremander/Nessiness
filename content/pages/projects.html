@@ -1,16 +1,20 @@
-<html>
-  <head>
-    <title>Projects</title>
-    <meta name="Category" content="0" />
-  </head>
-    <body>
+{% extends "base.html" %}
+
+{% block title %} &ndash; Projects {% endblock %}
+
+{% block content %}
+<article class="single">
+  <header>
+    <h1 class="page-header">Projects</h1>
+  </header>
+
       <div class="project-grid">
 
         <div class="project">
           <h4>ArcaNumeri for iOS</h4>
           <div class="project-img">
-            <a href="http://www.arcanumeri.com">
-              <img class="rounded-circle" src="../images/projects/arcanumeri.jpg">
+            <a href="http://www.arcanumeri.com" target="_blank">
+              <img class="rounded-circle" src="{{IMG_DIR}}/projects/arcanumeri.jpg">
             </a>
           </div>
           <div class="project-text">
@@ -25,7 +29,7 @@
           <h4><i>Jeopardy!</i> &#8239; Trainer</h4>
           <div class="project-img">
             <a href="#">
-              <img class="rounded-circle" src="../images/projects/jeopardy.png">
+              <img class="rounded-circle" src="{{IMG_DIR}}/projects/jeopardy.png">
             </a>
           </div>
           <div class="project-text">
@@ -36,21 +40,21 @@
           </div>
         </div>
 
-      <!-- <div class="grid-row">
-        <div class="content-image">
-          <a href="http://nessiness.com:8000/jeopardy">
-            <img class="img-fluid rounded-circle" src="img/jeopardy.png" alt="">
-          </a>
+        <div class="project">
+          <h4>SSBM Randomizer</h4>
+          <div class="project-img">
+            <a href="#">
+              <img class="rounded-circle" src="{{IMG_DIR}}/projects/ssbm3.jpg">
+            </a>
+          </div>
+          <div class="project-text">
+            <p>
+              Choose your character!<br><br>
+              This customizable random character selector is perfect for all you Super Smash Bros. Melee fans who want to switch it up, while avoiding the low-tiers!
+            </p>
+          </div>
         </div>
-        <div class="content-text">
-          <h2 class="display-4"><i>Jeopardy!</i> &#8239; Trainer</h2>
-          <p>
-            Want to be a contestant on <i>Jeopardy!</i>?<br><br>
-            Hone your trivia knowledge with this web app featuring the complete collection of questions asked on the popular game show. Dive deep into categories that you struggle with most (sports, anyone?), or set up a practice game with your friends.
-          </p>
-        </div>
-      </div>    -->
 
       </div>
-    </body>
-</html>
+</article>
+{% endblock %}
