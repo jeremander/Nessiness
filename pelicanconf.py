@@ -9,7 +9,9 @@ SITETITLE = 'Nessiness'
 SITEURL = 'http://localhost:8000'
 # SITEURL = 'https://nessiness.com'
 # SITELOGO = 'images/red_yoshi.png'
-SITELOGO = f'{SITEURL}/images/red_yoshi.png'
+IMG_DIR = f'{SITEURL}/images'
+SITELOGO = f'{IMG_DIR}/red_yoshi.png'
+
 
 # SITELOGO = ''
 # FAVICON = '/images/favicon.ico'
@@ -23,6 +25,8 @@ PATH = 'content'
 
 # inside of content directory
 STATIC_PATHS = ['images']
+
+TEMPLATE_PAGES = {'projects.html': 'projects.html'}
 
 TIMEZONE = 'America/New_York'
 
