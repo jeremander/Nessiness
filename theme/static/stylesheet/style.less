@@ -116,10 +116,11 @@ aside {
     font-size: 1.1em;
     font-family: @serif;
     font-style: italic;
-    margin: 0.5em 0em;
 
-    @media screen and (min-width: 768px) {
-        margin: 1em 0em;
+    margin: 0.75em 0em;
+
+    @media @tablet-down {
+        margin: 0.25em 0em;
     }
   }
 
@@ -129,15 +130,21 @@ aside {
 
     img.sitelogo {
       border-radius: 50%;
-      max-width: 120px;
+      // border-radius: 10%;
+      // max-width: 130px;
+      max-height: 110px;
 
-      @media screen and (min-width: 768px) {
-          max-width: 140px;
+      @media @tablet-down {
+          max-height: 90px;
       }
     }
 
-    h1 {
-      margin: 15px 0 5px 0;
+    h1.sitetitle {
+      margin: 15px 0px 5px 0px;
+
+      @media @tablet-down {
+        margin: 5px 0px;
+      }
     }
 
     p {
@@ -157,8 +164,18 @@ aside {
     }
 
       &.nav-links {
-        ul li {
-            padding: 0 0.5em 0 0.5em;
+        ul.list {
+            @media @tablet-down {
+                padding: 0.75em 0em;
+            }
+
+            li {
+                padding: 0 0.5em 0 0.5em;
+
+                @media @phone-down {
+                    font-size: 1.1em;
+                }
+            }
         }
       }
   }
@@ -207,7 +224,12 @@ main {
 
   article {
     flex: 1;
-    margin: 0em 4em;
+    // margin: 0em 4em;
+    margin: 0 5%;
+
+    // @media @tablet-down {
+    //   margin: 0em 2em;
+    // }
 
     header {
       h1, h2 {
@@ -588,7 +610,7 @@ ul.social {
 // Desktop
 //
 
-@media screen and (min-width: 768px) {
+@media not @tablet-down {
   aside {
     width: 16em;
     height: 110vh;
@@ -799,26 +821,30 @@ div.figure.align-right {
 
 .project-grid {
     display: grid;
-    grid-gap: 1.5em;
-    grid-template-columns: 1fr;
-    margin: 0em -2.5em;
+    grid-gap: 1em;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 0em -3em;
 
-    @media screen and (min-width: 768px) {
-        grid-template-columns: 1fr 1fr 1fr;
+    @media @desktop-down {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media @phone-down {
+        grid-template-columns: 1fr;
     }
 
     .project {
         box-shadow: 1px 1px 2px @neutral-grey;
         border-radius: 0.5em;
         background-color: @light-purple;
-        padding: 1em;
+        padding: 0.75em;
         text-align: center;
         h4 {
-            margin: 0em 0em 1em 0em;
+            margin: 0em 0em 0.5em 0em;
         }
         .project-img {
             img {
-                width: 150px;
+                width: 130px;
                 box-shadow: 2px 2px 3px @medium-grey;
 
                 &:hover {
@@ -827,11 +853,32 @@ div.figure.align-right {
             }
         }
         .project-text {
-            margin: 1em 0em 0em 0em;
+            margin: 0.5em 0em 0em 0em;
 
             p {
+                font-size: 11pt;
                 margin: 0;
             }
         }
+    }
+}
+
+// Pages
+
+article.projects {
+  @media @tablet-down {
+    margin: 0em 4em !important;
+  }
+}
+
+article.single {
+    h4 {
+        font-size: 1.25em;
+        margin: 1em 0em 0.5em 0em;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
     }
 }

@@ -8,9 +8,9 @@ SITENAME = 'Nessiness'
 SITETITLE = 'Nessiness'
 SITEURL = 'http://localhost:8000'
 # SITEURL = 'https://nessiness.com'
-# SITELOGO = 'images/red_yoshi.png'
 IMG_DIR = f'{SITEURL}/images'
-SITELOGO = f'{IMG_DIR}/red_yoshi.png'
+# SITELOGO = f'{IMG_DIR}/red_yoshi.png'
+SITELOGO = f'{IMG_DIR}/logo.png'
 
 
 # SITELOGO = ''
@@ -41,6 +41,7 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (('Home', SITEURL), ('Projects', f'{SITEURL}/pages/projects.html'))
+DISABLE_URL_HASH = True
 
 PAGES_SORT_ATTRIBUTE = 'category'
 
@@ -71,3 +72,23 @@ DEFAULT_PAGINATION = False
 # THEME_COLOR_ENABLE_USER_OVERRIDE = True
 
 USE_LESS = True
+
+# markdown-link-attr-modifier extension
+
+MARKDOWN = {
+    'extension_configs': {
+        'markdown.extensions.codehilite': {
+            'css_class': 'highlight',
+            'linenums': False,
+            'guess_lang': False,
+        },
+        'markdown.extensions.extra': {},
+        'markdown.extensions.meta': {},
+        'markdown.extensions.toc': {},
+
+        'markdown_link_attr_modifier': {
+            # config here
+        },
+    },
+    'output_format': 'html5',
+}
