@@ -2,16 +2,19 @@
 # -*- coding: utf-8 -*- #
 
 from datetime import datetime
+import getpass
 
 AUTHOR = 'Jeremy Silver'
 SITENAME = 'Nessiness'
 SITETITLE = 'Nessiness'
-SITEURL = 'http://localhost:8000'
-# SITEURL = 'https://nessiness.com'
+# SITEURL = ''
+if (getpass.getuser() == 'jeremander'):
+    # local dev environment
+    SITEURL = 'http://localhost:8000'
+else:
+    SITEURL = 'https://nessiness.com'
 IMG_DIR = f'{SITEURL}/images'
-# SITELOGO = f'{IMG_DIR}/red_yoshi.png'
 SITELOGO = f'{IMG_DIR}/logo.png'
-
 
 # SITELOGO = ''
 # FAVICON = '/images/favicon.ico'
@@ -24,7 +27,7 @@ THEME = 'theme'
 PATH = 'content'
 
 # inside of content directory
-STATIC_PATHS = ['images']
+STATIC_PATHS = ['docs', 'images']
 
 TEMPLATE_PAGES = {'pages/projects.html': 'pages/projects.html'}
 
@@ -33,11 +36,18 @@ TIMEZONE = 'America/New_York'
 DEFAULT_LANG = 'en'
 
 # Feed generation is usually not desired when developing
-FEED_ALL_ATOM = None
-CATEGORY_FEED_ATOM = None
+# FEED_ALL_ATOM = None
+# CATEGORY_FEED_ATOM = None
+# TRANSLATION_FEED_ATOM = None
+# AUTHOR_FEED_ATOM = None
+# AUTHOR_FEED_RSS = None
+
+FEED_DOMAIN = SITEURL
+FEED_ATOM = 'feed/atom.xml'
+FEED_ALL_ATOM = 'feed/all.atom.xml'
+CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
-AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (('Home', SITEURL), ('Projects', f'{SITEURL}/pages/projects.html'))
@@ -49,7 +59,8 @@ PAGES_SORT_ATTRIBUTE = 'category'
 SOCIAL = (
     ('twitter', 'https://twitter.com/Morosoph1729'),
     ('github', 'https://github.com/jeremander'),
-    ('envelope', 'mailto:jsilver9887@gmail.com?subject=Nessiness')
+    ('rss', f'{SITEURL}/{FEED_ALL_ATOM}'),
+    ('envelope', 'mailto:jsilver9887@gmail.com?subject=Nessiness'),
 )
 
 # MAIN_MENU = True

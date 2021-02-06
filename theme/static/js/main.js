@@ -7,11 +7,16 @@ $(document).ready(function () {
     page_title = page_title.trim();
   }
   let links = $('.nav-links .list').find('a');
+  let found_link = false;
   for (link of links) {
     let link_name = link.text.trim();
     if (link_name == page_title) {
       $(link).addClass('active-link');
+      found_link = true;
       break;
     }
+  }
+  if (!found_link) {
+    $(links[0]).addClass('active-link');
   }
 });
