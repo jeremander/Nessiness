@@ -2,17 +2,21 @@
 # -*- coding: utf-8 -*- #
 
 from datetime import datetime
-import getpass
+import os
+
+DEV = (os.environ.get('DEV') == '1')
 
 AUTHOR = 'Jeremy Silver'
 SITENAME = 'Nessiness'
 SITETITLE = 'Nessiness'
 # SITEURL = ''
-if (getpass.getuser() == 'jeremander'):
+
+if DEV:
     # local dev environment
     SITEURL = 'http://localhost:8000'
 else:
-    SITEURL = 'https://nessiness.com'
+    # SITEURL = 'https://nessiness.com'
+    SITEURL = 'https://jeremander.github.io/Nessiness'
 IMG_DIR = f'{SITEURL}/images'
 SITELOGO = f'{IMG_DIR}/logo.png'
 
