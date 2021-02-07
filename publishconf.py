@@ -21,7 +21,7 @@ RELATIVE_URLS = False
 LINKS[1] = ('Projects', f'{SITEURL}/pages/projects.html')
 
 # Social
-SOCIAL[2] = ('rss', f'{SITEURL}/{FEED_ALL_ATOM}')
+SOCIAL[2] = ('rss', f'{SITEURL}/{FEED_ATOM}')
 
 DELETE_OUTPUT_DIRECTORY = True
 

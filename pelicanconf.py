@@ -49,7 +49,7 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 
 # Blogroll
-LINKS = (('Home', SITEURL), ('Projects', f'{SITEURL}/pages/projects.html'))
+LINKS = [('Home', SITEURL), ('Projects', f'{SITEURL}/pages/projects.html')]
 DISABLE_URL_HASH = True
 
 PAGES_SORT_ATTRIBUTE = 'category'
@@ -58,7 +58,7 @@ PAGES_SORT_ATTRIBUTE = 'category'
 SOCIAL = [
     ('twitter', 'https://twitter.com/Morosoph1729'),
     ('github', 'https://github.com/jeremander'),
-    ('rss', f'{SITEURL}/{FEED_ALL_ATOM}'),
+    ('rss', f'{SITEURL}/{FEED_ATOM}'),
     ('envelope', 'mailto:jsilver9887@gmail.com?subject=Nessiness'),
 ]
 
