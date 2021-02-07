@@ -1,7 +1,7 @@
 Title: About
 Category: 1
 
-<img class="profile-pic" alt="Profile" src="{static}/images/profile.jpg" height=200px align="left"></img>
+<img class="profile-pic" alt="Profile" src="{static}/images/profile.jpg" align="left"></img>
 
 Hi, I'm Jeremy. I'm a mathematician and freelance software developer. In my spare time I like to work on various recreational software projects, including some mini web apps that can be found here on Nessiness.
 
