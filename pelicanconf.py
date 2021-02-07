@@ -11,12 +11,7 @@ SITENAME = 'Nessiness'
 SITETITLE = 'Nessiness'
 # SITEURL = ''
 
-if DEV:
-    # local dev environment
-    SITEURL = 'http://localhost:8000'
-else:
-    # SITEURL = 'https://nessiness.com'
-    SITEURL = 'https://jeremander.github.io/Nessiness'
+SITEURL = 'http://localhost:8000'
 IMG_DIR = f'{SITEURL}/images'
 SITELOGO = f'{IMG_DIR}/logo.png'
 
@@ -40,18 +35,11 @@ TIMEZONE = 'America/New_York'
 DEFAULT_LANG = 'en'
 
 # Feed generation is usually not desired when developing
-# FEED_ALL_ATOM = None
-# CATEGORY_FEED_ATOM = None
-# TRANSLATION_FEED_ATOM = None
-# AUTHOR_FEED_ATOM = None
-# AUTHOR_FEED_RSS = None
-
-FEED_DOMAIN = SITEURL
-FEED_ATOM = 'feed/atom.xml'
-FEED_ALL_ATOM = 'feed/all.atom.xml'
-CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
+FEED_ALL_ATOM = None
+CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
+AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (('Home', SITEURL), ('Projects', f'{SITEURL}/pages/projects.html'))
@@ -60,12 +48,12 @@ DISABLE_URL_HASH = True
 PAGES_SORT_ATTRIBUTE = 'category'
 
 # Social widget
-SOCIAL = (
+SOCIAL = [
     ('twitter', 'https://twitter.com/Morosoph1729'),
     ('github', 'https://github.com/jeremander'),
     ('rss', f'{SITEURL}/{FEED_ALL_ATOM}'),
     ('envelope', 'mailto:jsilver9887@gmail.com?subject=Nessiness'),
-)
+]
 
 # MAIN_MENU = True
 MENUITEMS = (

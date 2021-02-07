@@ -10,11 +10,23 @@ sys.path.append(os.curdir)
 from pelicanconf import *
 
 # If your site is available via HTTPS, make sure SITEURL begins with https://
-SITEURL = 'https://nessiness.com'
+# SITEURL = 'https://nessiness.com'
+SITEURL = 'https://jeremander.github.io/Nessiness'
+IMG_DIR = f'{SITEURL}/images'
+SITELOGO = f'{IMG_DIR}/logo.png'
+
 RELATIVE_URLS = False
 
-FEED_ALL_ATOM = 'feeds/all.atom.xml'
+# Feeds
+FEED_DOMAIN = SITEURL
+FEED_ATOM = 'feed/atom.xml'
+FEED_ALL_ATOM = 'feed/all.atom.xml'
 CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
+TRANSLATION_FEED_ATOM = None
+AUTHOR_FEED_ATOM = None
+
+# Social
+SOCIAL[2] = ('rss', f'{SITEURL}/{FEED_ALL_ATOM}')
 
 DELETE_OUTPUT_DIRECTORY = True
 
