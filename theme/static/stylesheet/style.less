@@ -47,7 +47,8 @@ body {
   background-color: @body-bg;
   color: @text-color;
   font-family: @sans;
-  font-size: 1.02em;
+  // font-size: 1.02em;
+  font-size: 13pt;
   line-height: 1.2em;
 }
 
@@ -371,10 +372,15 @@ main {
 }
 
 .tag-cloud {
+
+  p {
+    margin: 1.25em 0em;
+  }
+
   a {
     background-color: @tag-bg;
     padding: .2em .6em .2em;
-    font-size: .74em;
+    font-size: 10pt;
     line-height: 1;
     color: @tag-text-color;
     text-align: center;
@@ -392,7 +398,7 @@ a.btn,
 section#isso-thread section.auth-section p.post-action input {
   background-color: @btn-bg;
   padding: .6em .6em;
-  font-size: .8em;
+  font-size: 12pt;
   line-height: 1;
   color: @btn-text-color;
   text-align: center;
@@ -889,6 +895,10 @@ article.single {
   }
 
   @media @phone-down {
+    height: 200px;
+  }
+
+  @media @small-phone-down {
     height: 150px;
   }
 }

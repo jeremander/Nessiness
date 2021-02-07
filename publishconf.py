@@ -17,13 +17,8 @@ SITELOGO = f'{IMG_DIR}/logo.png'
 
 RELATIVE_URLS = False
 
-# Feeds
-FEED_DOMAIN = SITEURL
-FEED_ATOM = 'feed/atom.xml'
-FEED_ALL_ATOM = 'feed/all.atom.xml'
-CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
-TRANSLATION_FEED_ATOM = None
-AUTHOR_FEED_ATOM = None
+# Links
+LINKS[1] = ('Projects', f'{SITEURL}/pages/projects.html')
 
 # Social
 SOCIAL[2] = ('rss', f'{SITEURL}/{FEED_ALL_ATOM}')
