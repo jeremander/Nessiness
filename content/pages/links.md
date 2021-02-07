@@ -29,7 +29,7 @@ Below are some links to some nessiness that you may find interesting and/or valu
 
 #### Linguistics
 
-* [Etymonline](etymonline.com) &ndash; Online etymological dictionary. Great for looking up the origins of words & phrases.
+* [Etymonline](https://etymonline.com) &ndash; Online etymological dictionary. Great for looking up the origins of words & phrases.
 
 * [Behind the Name](https://www.behindthename.com) &ndash; Similar to the above, but for names. Use this to research the meanings behind prospective baby names, or to see how common your name was in the year you were born.
 

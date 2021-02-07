@@ -17,8 +17,10 @@ SITELOGO = f'{IMG_DIR}/logo.png'
 
 RELATIVE_URLS = False
 
+FEED_DOMAIN = SITEURL
+
 # Links
-LINKS[1] = ('Projects', f'{SITEURL}/pages/projects.html')
+LINKS = [('Home', SITEURL), ('Projects', f'{SITEURL}/pages/projects.html')]
 
 # Social
 SOCIAL[2] = ('rss', f'{SITEURL}/{FEED_ATOM}')
