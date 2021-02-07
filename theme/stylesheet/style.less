@@ -57,7 +57,6 @@ a {
 
   &.active-link {
     color: @sidebar-active-link-color;
-    // text-shadow: 1px 1px 8px white;
   }
 
   &:hover {
@@ -78,7 +77,6 @@ a {
 .page-header {
     text-align: center;
     margin: 2rem 0rem;
-    // margin-top: 2rem;
     color: @page-header-color;
 }
 
@@ -130,8 +128,6 @@ aside {
 
     img.sitelogo {
       border-radius: 50%;
-      // border-radius: 10%;
-      // max-width: 130px;
       max-height: 110px;
 
       @media @tablet-down {
@@ -223,12 +219,11 @@ main {
 
   article {
     flex: 1;
-    // margin: 0em 4em;
     margin: 0 5%;
 
-    // @media @tablet-down {
-    //   margin: 0em 2em;
-    // }
+    @media @wide-screen-up {
+      margin: 0 10%;
+    }
 
     header {
       h1, h2 {
@@ -885,4 +880,15 @@ article.single {
 .profile-pic {
   margin-bottom: 0.5rem;
   margin-right: 1.75rem;
+  height: 300px;
+
+  @media @tablet-down {
+    height: 225px;
+    margin-bottom: 0rem;
+    margin-right: 0.75rem;
+  }
+
+  @media @phone-down {
+    height: 150px;
+  }
 }
