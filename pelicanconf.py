@@ -59,7 +59,7 @@ SOCIAL = [
     ('twitter', 'https://twitter.com/Morosoph1729'),
     ('github', 'https://github.com/jeremander'),
     ('rss', f'{SITEURL}/{FEED_ATOM}'),
-    ('envelope', 'mailto:jsilver9887@gmail.com?subject=Nessiness'),
+    ('envelope', 'mailto:jeremys@nessiness.com?subject=Nessiness'),
 ]
 
 # MAIN_MENU = True
