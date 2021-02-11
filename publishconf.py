@@ -13,6 +13,7 @@ from pelicanconf import *
 SITEURL = 'https://nessiness.com'
 IMG_DIR = f'{SITEURL}/images'
 SITELOGO = f'{IMG_DIR}/logo.png'
+FAVICON_DIR = f'{IMG_DIR}/favicons'
 
 RELATIVE_URLS = False
 

@@ -14,9 +14,7 @@ SITETITLE = 'Nessiness'
 SITEURL = 'http://localhost:8000'
 IMG_DIR = f'{SITEURL}/images'
 SITELOGO = f'{IMG_DIR}/logo.png'
-
-# SITELOGO = ''
-# FAVICON = '/images/favicon.ico'
+FAVICON_DIR = f'{IMG_DIR}/favicons'
 # BROWSER_COLOR = "#333333"
 # PYGMENTS_STYLE = "monokai"
 

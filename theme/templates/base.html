@@ -95,10 +95,15 @@
     <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS">
   {% endif %}
 
-  {% if FAVICON %}
-    <link rel="shortcut icon" href="{{ FAVICON }}" type="image/x-icon">
-    <link rel="icon" href="{{ FAVICON }}" type="image/x-icon">
+  {% if FAVICON_DIR %}
+    <link rel="apple-touch-icon" href="{{FAVICON_DIR}}/apple-touch-icon.png" sizes="180x180">
+    <link rel="shortcut icon" href="{{FAVICON_DIR}}/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="shortcut icon" href="{{FAVICON_DIR}}/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="manifest" href="{{FAVICON_DIR}}/site.webmanifest">
   {% endif %}
+
+
+
 
   {% if GOOGLE_ANALYTICS %}
     {% include "partial/ga.html" %}
