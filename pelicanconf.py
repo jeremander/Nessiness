@@ -9,7 +9,6 @@ DEV = (os.environ.get('DEV') == '1')
 AUTHOR = 'Jeremy Silver'
 SITENAME = 'Nessiness'
 SITETITLE = 'Nessiness'
-# SITEURL = ''
 
 SITEURL = 'http://localhost:8000'
 IMG_DIR = f'{SITEURL}/images'
@@ -63,11 +62,13 @@ SOCIAL = [
 ]
 
 # MAIN_MENU = True
-MENUITEMS = (
-    ('Archives', '/archives.html'),
-    ('Categories', '/categories.html'),
-    ('Tags', '/tags.html'),
-)
+# MENUITEMS = (
+#     ('Archives', '/archives.html'),
+#     ('Categories', '/categories.html'),
+#     ('Tags', '/tags.html'),
+# )
+
+LOGIN_NAV = True
 
 COPYRIGHT_YEAR = datetime.now().year
 COPYRIGHT_NAME = 'Nessiness'
