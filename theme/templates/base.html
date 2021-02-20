@@ -243,9 +243,10 @@
 
       {% if LOGIN_NAV %}
         <nav class="login-nav">
-          <div>Hello, <b>Morosoph1729</b>!</div>
-          <div>
+          <div class="user-greeting"></div>
+          <div class="login-toggle">
             <a class="login-link" href="" data-toggle="modal" data-target="#login-modal"><i class="fas fa-user"></i><span>Log In</span></a>
+            <a class="logout-link" href=""><i class="fas fa-user"></i><span>Log Out</span></a>
           </div>
         </nav>
       {% endif %}
@@ -333,6 +334,7 @@
   {% endif %}
 
   <!-- Main JS code -->
+  <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/login.js"></script>
   <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/main.js"></script>
 
   {% block additional_js %}
