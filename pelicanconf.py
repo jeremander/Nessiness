@@ -70,6 +70,7 @@ LOGIN_NAV = True
 
 COPYRIGHT_YEAR = datetime.now().year
 COPYRIGHT_NAME = 'Nessiness'
+DEFAULT_DATE_FORMAT = '%b %d, %Y'
 
 DEFAULT_PAGINATION = False
 

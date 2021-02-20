@@ -11,7 +11,7 @@
         color: @light-grey;
     }
 
-    .login-link {
+    .login-toggle > a {
         color: @sidebar-active-link-color;
 
         &:hover {
@@ -82,11 +82,18 @@
         margin-bottom: auto;
         height: 100%;
         width: 100%;
-        background-color: @light-grey !important;
+
+        .card-header, .card-footer {
+            background-color: @login-header-color !important;
+        }
 
         h3 {
             color: @dark-purple;
             margin: 0;
+        }
+
+        .card-body {
+            background-color: @login-body-color !important;
         }
 
         input:focus{
@@ -98,7 +105,7 @@
             display: inline-block;
             width: 50px;
             background-color: @medium-gold;
-            color: black;
+            color: @dark-grey;
             border: 0 !important;
         }
 
@@ -107,13 +114,12 @@
         }
 
         .login-btn {
-            color: black;
-            background-color: @medium-gold;
+            color: white;
+            background-color: @dark-purple;
             width: 100px;
 
             &:hover{
-                color: black;
-                background-color: white;
+                background-color: @medium-purple;
             }
         }
 
@@ -143,3 +149,24 @@
         }
     }
 }
+
+#signup-modal .card-footer {
+    padding: 0.5em 0em;
+}
+
+#signup-success {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    bottom: 10%;
+    left: 32%;
+    width: 36%;
+    text-align: center;
+
+    @media @tablet-down {
+        left: 10%;
+        width: 80%;
+    }
+}
+
