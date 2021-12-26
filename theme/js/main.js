@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  // determine the page title
   let page_title = $('title')[0].text.split('–')[1];
   if (page_title === undefined) {
     page_title = 'Home';
@@ -6,6 +7,8 @@ $(document).ready(function () {
   else {
     page_title = page_title.trim();
   }
+  refreshLoginDisplay(); // display cached username
+  // determine which link on navbar is active
   let links = $('.nav-links .list').find('a');
   let found_link = false;
   for (link of links) {

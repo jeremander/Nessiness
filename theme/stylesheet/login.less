@@ -1,0 +1,172 @@
+@import "variables.less";
+
+.login-nav {
+    display: block;
+    margin-top: 1.75em;
+    font-size: 10pt;
+
+    div {
+        margin: 0.3em 0em;
+        padding: 0;
+        color: @light-grey;
+    }
+
+    .login-toggle > a {
+        color: @sidebar-active-link-color;
+
+        &:hover {
+            color: @sidebar-link-hover-color;
+        }
+        .fa-user {
+            margin-right: 0.5em;
+        }
+    }
+
+    @media @tablet-down {
+        position: absolute;
+        text-align: right;
+        max-width: 36%;
+        margin: 0;
+        top: 15px;
+        right: 20px;
+    }
+
+    @media @phone-down {
+        font-size: 9pt;
+        top: 8px;
+        right: 10px;
+    }
+
+}
+
+@fade-time: 0.33s;
+
+.modal.fade .modal-dialog {
+    top: -5%;
+    -webkit-transition: all @fade-time;
+    -moz-transition: all @fade-time;
+    transition: all @fade-time;
+}
+
+// .modal.fade .modal-dialog {
+//   -webkit-transform: translate(0,0);
+//   transform: translate(0, 0);
+// }
+
+// .zoom-in {
+//   transform: scale(0) !important;
+//   opacity: 0;
+//   -webkit-transition: 1.5s all 0s;
+//   -moz-transition: 1.5s all 0s;
+//   -ms-transition: 1.5s all 0s;
+//   -o-transition: 1.5s all 0s;
+//   transition: 1.5s all 0s;
+//   display: block !important;
+// }
+
+// .zoom-in.show {
+//   opacity: 1;
+//   transform: scale(1)!important;
+//   transform:none;
+// }
+
+.container {
+    height: 100%;
+    max-width: 350px;
+    text-align: center;
+    align-content: center;
+    padding: 0;
+
+    .card {
+        margin-top: auto;
+        margin-bottom: auto;
+        height: 100%;
+        width: 100%;
+
+        .card-header, .card-footer {
+            background-color: @login-header-color !important;
+        }
+
+        h3 {
+            color: @dark-purple;
+            margin: 0;
+        }
+
+        .card-body {
+            background-color: @login-body-color !important;
+        }
+
+        input:focus{
+            outline: 0 0 0 0 !important;
+            box-shadow: 0 0 0 0 !important;
+        }
+
+        .input-group-prepend span {
+            display: inline-block;
+            width: 50px;
+            background-color: @medium-gold;
+            color: @dark-grey;
+            border: 0 !important;
+        }
+
+        form div:last-child {
+            margin-bottom: 0;
+        }
+
+        .login-btn {
+            color: white;
+            background-color: @dark-purple;
+            width: 100px;
+
+            &:hover{
+                background-color: @medium-purple;
+            }
+        }
+
+        .card-footer {
+            padding: 0;
+
+            div {
+                margin: 0.7em 0em;
+
+                &:first-child {
+                    margin-bottom: 0.25em;
+                }
+                &:last-child {
+                    margin-top: 0.25em;
+                }
+            }
+
+            a:link, a:visited {
+                text-decoration: none;
+            }
+
+            .links {
+                a {
+                    margin-left: 4px;
+                }
+            }
+        }
+    }
+}
+
+#signup-modal .card-footer {
+    padding: 0.5em 0em;
+}
+
+#signup-success {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    bottom: 10%;
+    left: 32%;
+    width: 36%;
+    text-align: center;
+
+    @media @tablet-down {
+        left: 10%;
+        width: 80%;
+    }
+}
+
