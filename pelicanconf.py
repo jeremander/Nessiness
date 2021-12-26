@@ -20,6 +20,7 @@ FAVICON_DIR = f'{IMG_DIR}/favicons'
 ROBOTS = "index, follow"
 
 THEME = 'theme'
+# THEME = "/Users/jerm/Programming/Web/pelican-themes/Flex"
 PATH = 'content'
 
 # inside of content directory
@@ -66,7 +67,8 @@ SOCIAL = [
 #     ('Tags', '/tags.html'),
 # )
 
-LOGIN_NAV = True
+# LOGIN_NAV = True
+LOGIN_NAV = DEV
 
 COPYRIGHT_YEAR = datetime.now().year
 COPYRIGHT_NAME = 'Nessiness'
