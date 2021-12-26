@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "nessiness"
+version = "0.1.0"
+description = "Nessiness website."
+authors = ["Jeremy Silver <jeremys@nessiness.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Markdown = "^3.3.6"
+markdown-link-attr-modifier = "^0.2.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
