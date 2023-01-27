@@ -63,8 +63,12 @@ $('#login-form').submit(function(elt) {
         let response = JSON.parse(xhr.responseText);
         localStorage.setItem('nessiness-username', response.username);
         refreshLoginDisplay();
-        // $('#login-modal').modal('hide');
-        window.location.replace('/');
+        let locUrl = new URL(window.location.href);
+        let redirectUrl = locUrl.searchParams.get('redirect');
+        if (!redirectUrl) {
+          redirectUrl = '/';
+        }
+        window.location.replace(redirectUrl);
       }
       else {
         alert('Unknown error occurred.')
@@ -91,8 +95,6 @@ $('#signup-form').submit(function(elt) {
   let xhr = new XMLHttpRequest();
   let url = authUrl + '/users/create?welcome=true';
   xhr.open('POST', url, true);
-  // let url = authUrl + '/healthcheck';
-  // xhr.open('GET', url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
