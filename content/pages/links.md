@@ -5,7 +5,7 @@ Below are some links to some nessiness that you may find interesting and/or valu
 
 #### Physics & Math
 
-* [Time-Space Interchange](timespaceinterchange.com) &ndash; Quantum mechanics blog of the original Nessiness co-founder, Matthew Weiss. You can also join his weekly meetup group, the [Brooklyn Quantum Meetup](https://www.meetup.com/brooklyn_quantum).
+* [Time-Space Interchange](http://timespaceinterchange.com) &ndash; Quantum mechanics blog of the original Nessiness co-founder, Matthew Weiss. You can also join his weekly meetup group, the [Brooklyn Quantum Meetup](https://www.meetup.com/brooklyn_quantum).
 
 * [My Senior Thesis](../docs/jeremy_silver_thesis.pdf) &ndash; This is a link to my undergraduate senior thesis, *On the Completeness of S4 and the Algebra of Possible Worlds*, wherein I discuss two different proofs of the completeness of the S4 modal logic system.
 

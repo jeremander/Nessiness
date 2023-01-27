@@ -11,7 +11,7 @@
         color: @light-grey;
     }
 
-    .login-toggle > a {
+    .login-logout > a {
         color: @sidebar-active-link-color;
 
         &:hover {
@@ -20,6 +20,10 @@
         .fa-user {
             margin-right: 0.5em;
         }
+    }
+
+    .user-greeting {
+        margin: 0.75em;
     }
 
     @media @tablet-down {
@@ -39,14 +43,14 @@
 
 }
 
-@fade-time: 0.33s;
+// @fade-time: 0.33s;
 
-.modal.fade .modal-dialog {
-    top: -5%;
-    -webkit-transition: all @fade-time;
-    -moz-transition: all @fade-time;
-    transition: all @fade-time;
-}
+// .modal.fade .modal-dialog {
+//     top: -5%;
+//     -webkit-transition: all @fade-time;
+//     -moz-transition: all @fade-time;
+//     transition: all @fade-time;
+// }
 
 // .modal.fade .modal-dialog {
 //   -webkit-transform: translate(0,0);
@@ -69,19 +73,17 @@
 //   transform: scale(1)!important;
 //   transform:none;
 // }
-
-.container {
+#login-box, #signup-box {
+    display: flex;
     height: 100%;
-    max-width: 350px;
     text-align: center;
-    align-content: center;
-    padding: 0;
 
     .card {
-        margin-top: auto;
-        margin-bottom: auto;
-        height: 100%;
-        width: 100%;
+        margin: auto;
+        width: 350px;
+        // max-width: 350px;
+        align-content: center;
+        box-shadow: 1px 1px 3px @neutral-grey;
 
         .card-header, .card-footer {
             background-color: @login-header-color !important;
@@ -122,51 +124,50 @@
                 background-color: @medium-purple;
             }
         }
+    }
+}
 
-        .card-footer {
-            padding: 0;
+#login-box {
+    .card-footer {
+        padding: 0;
 
-            div {
-                margin: 0.7em 0em;
+        div {
+            margin: 0.7em 0em;
 
-                &:first-child {
-                    margin-bottom: 0.25em;
-                }
-                &:last-child {
-                    margin-top: 0.25em;
-                }
+            &:first-child {
+                margin-bottom: 0.25em;
             }
 
-            a:link, a:visited {
-                text-decoration: none;
+            &:last-child {
+                margin-top: 0.25em;
             }
+        }
 
-            .links {
-                a {
-                    margin-left: 4px;
-                }
+        a:link, a:visited {
+            text-decoration: none;
+        }
+
+        .links {
+            a {
+                margin-left: 4px;
             }
         }
     }
 }
 
-#signup-modal .card-footer {
-    padding: 0.5em 0em;
-}
 
 #signup-success {
-    display: flex;
-    position: fixed;
-    justify-content: center;
-    align-items: center;
-    bottom: 10%;
-    left: 32%;
-    width: 36%;
+    position: absolute;
+    left: 23%;
+    width: 54%;
+    margin: auto;
     text-align: center;
+    bottom: 15%;
 
     @media @tablet-down {
-        left: 10%;
-        width: 80%;
+        left: 4%;
+        width: 92%;
+        bottom: 4%;
     }
 }
 

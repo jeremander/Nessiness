@@ -1,14 +1,17 @@
-// const authUrl = "https://nessiness-auth.herokuapp.com";
-const authUrl = "http://localhost:5000";
+// const authUrl = "https://nessiness-auth.fly.dev";
+const authUrl = "http://localhost:8000";
 
 function refreshLoginDisplay() {
   let username = localStorage.getItem('nessiness-username');
   if (username === null) {
     $('.user-greeting').html('');
+    $('.login-link').show();
+    $('.logout-link').hide();
   }
   else {
     $('.user-greeting').html(`Hello, <b>${username}</b>!`);
     $('.login-link').hide();
+    $('.logout-link').show();
   }
 }
 
@@ -26,19 +29,28 @@ function clearForm(form) {
   }
 }
 
-$('#login-modal').on('hide.bs.modal', function (e) {
-  clearForm($(e.target).find('#login-form'));
-});
+function signupToggle() {
+  $('#login-box').hide();
+  $('#signup-box').show();
+  clearForm($('#login-form'));
+}
 
-$('#signup-modal').on('hide.bs.modal',  function(e) {
-  clearForm($(e.target).find('#signup-form'));
+function loginToggle() {
+  $('#signup-box').hide();
+  $('#login-box').show();
+  clearForm($('#signup-form'));
+}
+
+$(document).ready(function() {
+  refreshLoginDisplay();
+  $('#signup-box').hide();
 });
 
 $('#login-form').submit(function(elt) {
   clearInvalid(elt.target);
   let formData = new FormData(elt.target);
   let xhr = new XMLHttpRequest();
-  let url = authUrl + '/token';
+  let url = authUrl + '/login';
   xhr.open('POST', url, true);
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
@@ -50,16 +62,22 @@ $('#login-form').submit(function(elt) {
       else if (xhr.status == 200) {
         let response = JSON.parse(xhr.responseText);
         localStorage.setItem('nessiness-username', response.username);
-        refreshUsername();
-        $('#login-modal').modal('hide');
+        refreshLoginDisplay();
+        // $('#login-modal').modal('hide');
+        window.location.replace('/');
       }
       else {
-        alert('Unknown error occurred.');
+        alert('Unknown error occurred.')
       }
     }
   };
   xhr.send(formData);
   return false;
+});
+
+$('.logout-link').click(function() {
+  localStorage.removeItem('nessiness-username');
+  // refreshLoginDisplay();
 });
 
 $('#signup-form').submit(function(elt) {
@@ -73,9 +91,14 @@ $('#signup-form').submit(function(elt) {
   let xhr = new XMLHttpRequest();
   let url = authUrl + '/users/create?welcome=true';
   xhr.open('POST', url, true);
+  // let url = authUrl + '/healthcheck';
+  // xhr.open('GET', url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
+      if (xhr.status == 0) {
+        alert('Error: could not connect to Nessiness login server.')
+      }
       let response = JSON.parse(xhr.responseText);
       if (xhr.status == 409) {  // user or email already exists
         let msg = response.detail;
@@ -96,6 +119,7 @@ $('#signup-form').submit(function(elt) {
         $('#signup-success').fadeIn('fast', function() {
           $(this).delay(5000).fadeOut('slow');
         });
+        loginToggle();
       }
       else {
         alert('Unknown error occurred.')
@@ -106,3 +130,6 @@ $('#signup-form').submit(function(elt) {
   return false;
 });
 
+$('#signup-toggle').click(signupToggle);
+
+$('#login-toggle').click(loginToggle);

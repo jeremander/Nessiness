@@ -1,87 +1,94 @@
-<div id="login-modal" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content container">
-      <div class="card">
-        <div class="card-header">
-          <h3>Log In</h3>
-        </div>
-        <div class="card-body">
-          <form id="login-form">
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
-              </div>
-              <input type="text" class="form-control" name="username" placeholder="username or email" required>
+{% extends "base.html" %}
+
+{% block title %} &ndash; Login {% endblock %}
+
+{% block content %}
+<article class="single login">
+
+  <div id="login-box">
+    <div class="card">
+      <div class="card-header">
+        <h3>Log In</h3>
+      </div>
+      <div class="card-body">
+        <form id="login-form">
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-key"></i></span>
-              </div>
-              <input type="password" class="form-control" name="password" placeholder="password" required>
-            </div>
-            <div class="form-group">
-              <input type="submit" value="Login" class="btn login-btn">
-            </div>
-          </form>
-        </div>
-        <div class="card-footer">
-          <div class="d-flex justify-content-center links">
-            Don't have an account? &nbsp; <a href="#signup-modal" data-toggle="modal" data-dismiss="modal">Sign Up</a> <br>
+            <input type="text" class="form-control" name="username" placeholder="username or email" required>
           </div>
-          <div class="d-flex justify-content-center">
-            <a onclick="alert('Sucks to be you! 😜');" href="javascript:void(0);">Forgot your password?</a>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <input type="password" class="form-control" name="password" placeholder="password" required>
           </div>
+          <div class="form-group">
+            <input type="submit" value="Login" class="btn login-btn">
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <div class="d-flex justify-content-center links">
+          Don't have an account? &nbsp; <a id="signup-toggle" href="#signup-box">Sign Up</a>
+          <br>
+        </div>
+        <div class="d-flex justify-content-center">
+          <a onclick="alert('Sucks to be you! 😜');" href="javascript:void(0);">Forgot your password?</a>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div id="signup-modal" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content container">
-      <div class="card">
-        <div class="card-header">
-          <h3>Sign Up</h3>
-        </div>
-        <div class="card-body">
-          <form id="signup-form">
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
-              </div>
-              <input type="text" class="form-control" name="username" placeholder="username" minlength="4" maxlength="16" required>
+  <div id="signup-box">
+    <div class="card">
+      <div class="card-header">
+        <h3>Sign Up</h3>
+      </div>
+      <div class="card-body">
+        <form id="signup-form">
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-              </div>
-              <input type="email" class="form-control" name="email" placeholder="email" required>
-            </div>
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-key"></i></span>
-              </div>
-              <input type="password" class="form-control" name="password" placeholder="password" minlength="8" maxlength="32" required>
-            </div>
-            <div class="form-group">
-              <input type="submit" value="Sign Up" class="btn login-btn">
-            </div>
-          </form>
-        </div>
-        <div class="card-footer">
-          <div class="d-flex justify-content-center links">
-            Already have an account? &nbsp; <a href="#login-modal" data-toggle="modal" data-dismiss="modal">Log In</a> <br>
+            <input type="text" class="form-control" name="username" placeholder="username" minlength="4"
+              maxlength="16" required>
           </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            </div>
+            <input type="email" class="form-control" name="email" placeholder="email" required>
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <input type="password" class="form-control" name="password" placeholder="password" minlength="8"
+              maxlength="32" required>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Sign Up" class="btn login-btn">
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <div class="d-flex justify-content-center links">
+          Already have an account? &nbsp; <a id="login-toggle" href="#login-box">Log In</a>
+          <br>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div id="signup-success" class="alert alert-success alert-dismissible" style="display: none" role="alert">
-  <span class="success-msg"></span>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+  <div id="signup-success" class="alert alert-success alert-dismissible" style="display: none" role="alert">
+    <span class="success-msg"></span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+</article>
+
+{% endblock %}
