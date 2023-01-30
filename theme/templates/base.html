@@ -250,6 +250,12 @@
           </div>
         </nav>
       {% endif %}
+
+      {% if DEV %}
+        <div>
+          <a href="{{AUTH_URL}}/users/me">Me</a>
+        </div>
+      {% endif %}
     </div>
 
     {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.aside %}
@@ -330,7 +336,13 @@
     </script>
   {% endif %}
 
-  <!-- Main JS code -->
+  <!-- JS global constants -->
+  <script>
+    const authUrl = "{{ AUTH_URL | safe}}";
+  </script>
+
+  <!-- Local JS imports -->
+  <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/auth.js"></script>
   <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/login.js"></script>
   <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/main.js"></script>
 

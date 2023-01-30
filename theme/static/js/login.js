@@ -1,17 +1,15 @@
-// const authUrl = "https://nessiness-auth.fly.dev";
-const authUrl = "http://localhost:8000";
-
 function refreshLoginDisplay() {
-  let username = localStorage.getItem('nessiness-username');
-  if (username === null) {
-    $('.user-greeting').html('');
-    $('.login-link').show();
-    $('.logout-link').hide();
-  }
-  else {
+  let loginState = getLocalLoginState();
+  if (loginState) {
+    let username = loginState['user']['username'];
     $('.user-greeting').html(`Hello, <b>${username}</b>!`);
     $('.login-link').hide();
     $('.logout-link').show();
+  }
+  else {
+    $('.user-greeting').html('');
+    $('.login-link').show();
+    $('.logout-link').hide();
   }
 }
 
@@ -42,17 +40,19 @@ function loginToggle() {
 }
 
 $(document).ready(function() {
-  refreshLoginDisplay();
-  $('#signup-box').hide();
+  refreshUserLoginState().then(() => {
+    refreshLoginDisplay();
+    $('#signup-box').hide();
+  });
 });
 
 $('#login-form').submit(function(elt) {
   clearInvalid(elt.target);
   let formData = new FormData(elt.target);
   let xhr = new XMLHttpRequest();
-  let url = authUrl + '/login';
+  const url = getAuthUrl('/login');
   xhr.open('POST', url, true);
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     if (xhr.readyState == 4) {
       if (xhr.status == 401) {  // authentication error
         let inputs = $(elt.target).find('input');
@@ -60,9 +60,9 @@ $('#login-form').submit(function(elt) {
         $(inputs[1]).parent().append('<div class="invalid-feedback">Invalid username or password.</div>');
       }
       else if (xhr.status == 200) {
-        let response = JSON.parse(xhr.responseText);
-        localStorage.setItem('nessiness-username', response.username);
-        refreshLoginDisplay();
+        // store the login state
+        let loginState = JSON.parse(xhr.responseText);
+        localStorage.setItem('loginState', xhr.responseText);
         let locUrl = new URL(window.location.href);
         let redirectUrl = locUrl.searchParams.get('redirect');
         if (!redirectUrl) {
@@ -80,8 +80,12 @@ $('#login-form').submit(function(elt) {
 });
 
 $('.logout-link').click(function() {
-  localStorage.removeItem('nessiness-username');
-  // refreshLoginDisplay();
+  localStorage.setItem('loginState', "false");
+  let xhr = new XMLHttpRequest();
+  const url = getAuthUrl('/logout');
+  xhr.open('POST', url, true);
+  xhr.send(null);
+  refreshLoginDisplay();
 });
 
 $('#signup-form').submit(function(elt) {

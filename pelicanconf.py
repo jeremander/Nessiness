@@ -10,8 +10,13 @@ AUTHOR = 'Jeremy Silver'
 SITENAME = 'Nessiness'
 SITETITLE = 'Nessiness'
 
-# SITEURL = 'http://localhost:8000'
 SITEURL = 'http://localhost:8080'
+
+if DEV:
+    AUTH_URL = 'http://localhost:8000'
+else:
+    AUTH_URL = 'https://nessiness-auth.fly.dev'
+
 IMG_DIR = f'{SITEURL}/images'
 SITELOGO = f'{IMG_DIR}/logo.png'
 FAVICON_DIR = f'{IMG_DIR}/favicons'
