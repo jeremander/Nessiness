@@ -7,7 +7,12 @@ $(document).ready(function () {
   else {
     page_title = page_title.trim();
   }
-  refreshLoginDisplay(); // display cached username
+
+  refreshUserLoginState().then(() => {
+    refreshLoginDisplay(); // display cached username
+    $('#signup-box').hide();
+  });
+
   // determine which link on navbar is active
   let links = $('.nav-links .list').find('a');
   let found_link = false;

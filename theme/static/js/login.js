@@ -1,10 +1,17 @@
 function refreshLoginDisplay() {
   let loginState = getLocalLoginState();
-  if (loginState) {
-    let username = loginState['user']['username'];
-    $('.user-greeting').html(`Hello, <b>${username}</b>!`);
-    $('.login-link').hide();
-    $('.logout-link').show();
+  if (loginState.isLoggedIn) {
+    try {
+      let username = loginState.data.user.username;
+      $('.user-greeting').html(`Hello, <b>${username}</b>!`);
+    }
+    catch {
+      console.log('Could not get username.');
+    }
+    finally {
+      $('.login-link').hide();
+      $('.logout-link').show();
+    }
   }
   else {
     $('.user-greeting').html('');
@@ -39,53 +46,46 @@ function loginToggle() {
   clearForm($('#signup-form'));
 }
 
-$(document).ready(function() {
-  refreshUserLoginState().then(() => {
-    refreshLoginDisplay();
-    $('#signup-box').hide();
+$('#login-form').submit((elt) => {
+  elt.preventDefault();
+  clearInvalid(elt.target);
+  let formData = new FormData(elt.target);
+  const loginUrl = getAuthUrl('/login');
+  fetch(loginUrl, { method: 'POST', body: formData }).then(loginStateFromResponse).then((loginState) => {
+    // store the login state
+    localStorage.setItem('loginState', JSON.stringify(loginState));
+    if (loginState.status == 401) {  // authentication error
+      let inputs = $(elt.target).find('input');
+      $(inputs[1]).addClass('is-invalid');
+      let err = loginState.data.detail;
+      $(inputs[1]).parent().append(`<div class="invalid-feedback">${err}.</div>`);
+    }
+    else if (loginState.status == 200) {
+      // if a redirect URL is present, redirect back there
+      let locUrl = new URL(window.location.href);
+      let redirectUrl = locUrl.searchParams.get('redirect');
+      if (!redirectUrl) {
+        redirectUrl = '/';
+      }
+      window.location.replace(redirectUrl);
+    }
+    else {
+      alert('Unknown error occurred.');
+    }
   });
 });
 
-$('#login-form').submit(function(elt) {
-  clearInvalid(elt.target);
-  let formData = new FormData(elt.target);
-  let xhr = new XMLHttpRequest();
-  const url = getAuthUrl('/login');
-  xhr.open('POST', url, true);
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4) {
-      if (xhr.status == 401) {  // authentication error
-        let inputs = $(elt.target).find('input');
-        $(inputs[1]).addClass('is-invalid');
-        $(inputs[1]).parent().append('<div class="invalid-feedback">Invalid username or password.</div>');
-      }
-      else if (xhr.status == 200) {
-        // store the login state
-        let loginState = JSON.parse(xhr.responseText);
-        localStorage.setItem('loginState', xhr.responseText);
-        let locUrl = new URL(window.location.href);
-        let redirectUrl = locUrl.searchParams.get('redirect');
-        if (!redirectUrl) {
-          redirectUrl = '/';
-        }
-        window.location.replace(redirectUrl);
-      }
-      else {
-        alert('Unknown error occurred.')
-      }
-    }
-  };
-  xhr.send(formData);
-  return false;
-});
-
-$('.logout-link').click(function() {
-  localStorage.setItem('loginState', "false");
-  let xhr = new XMLHttpRequest();
-  const url = getAuthUrl('/logout');
-  xhr.open('POST', url, true);
-  xhr.send(null);
-  refreshLoginDisplay();
+$('.logout-link').click((elt) => {
+  elt.preventDefault();
+  const logoutUrl = getAuthUrl('/logout');
+  fetch(logoutUrl, { method: 'POST' }).then((response) => {
+    return loginStateFromResponse(response, false);
+  }).then((loginState) => {
+    localStorage.setItem('loginState', JSON.stringify(loginState));
+    console.log('User is logged out.');
+    console.log('Login state:', loginState.data);
+    refreshLoginDisplay();
+  });
 });
 
 $('#signup-form').submit(function(elt) {
