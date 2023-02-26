@@ -28,6 +28,14 @@
 
     .user-greeting {
         margin: 0.75em;
+
+        .username {
+            color: @sidebar-active-link-color;
+
+            &:hover {
+                color: @sidebar-link-hover-color;
+            }
+        }
     }
 
     @media @tablet-down {
@@ -47,36 +55,6 @@
 
 }
 
-// @fade-time: 0.33s;
-
-// .modal.fade .modal-dialog {
-//     top: -5%;
-//     -webkit-transition: all @fade-time;
-//     -moz-transition: all @fade-time;
-//     transition: all @fade-time;
-// }
-
-// .modal.fade .modal-dialog {
-//   -webkit-transform: translate(0,0);
-//   transform: translate(0, 0);
-// }
-
-// .zoom-in {
-//   transform: scale(0) !important;
-//   opacity: 0;
-//   -webkit-transition: 1.5s all 0s;
-//   -moz-transition: 1.5s all 0s;
-//   -ms-transition: 1.5s all 0s;
-//   -o-transition: 1.5s all 0s;
-//   transition: 1.5s all 0s;
-//   display: block !important;
-// }
-
-// .zoom-in.show {
-//   opacity: 1;
-//   transform: scale(1)!important;
-//   transform:none;
-// }
 #login-box, #signup-box {
     display: flex;
     height: 100%;
@@ -86,7 +64,7 @@
         margin: auto;
         width: 350px;
         // max-width: 350px;
-        align-content: center;
+        // align-content: center;
         box-shadow: 1px 1px 3px @neutral-grey;
 
         .card-header, .card-footer {
@@ -115,17 +93,31 @@
             border: 0 !important;
         }
 
-        form div:last-child {
-            margin-bottom: 0;
-        }
+        #login-form {
+            > div {
+                margin-bottom: 1em;
+            }
 
-        .login-btn {
-            color: white;
-            background-color: @dark-purple;
-            width: 100px;
+            .form-check-input {
+                scale: 1.3;
+            }
 
-            &:hover{
-                background-color: @medium-purple;
+            .form-check-label {
+                padding-left: 0.25em;
+            }
+
+            > div:last-child {
+                margin-bottom: 0;
+            }
+
+            .login-btn {
+                color: white;
+                background-color: @dark-purple;
+                width: 100px;
+
+                &:hover{
+                    background-color: @medium-purple;
+                }
             }
         }
     }

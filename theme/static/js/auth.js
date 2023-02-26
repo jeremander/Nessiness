@@ -1,8 +1,44 @@
+function isObject(item) {
+  return (item && typeof item === 'object' && !Array.isArray(item));
+}
+
+// deep-merges one object into another
+function mergeDeep(target, source) {
+  for (const key in source) {
+    if (isObject(source[key])) {
+      if (!target[key]) {
+        Object.assign(target, { [key]: {} });
+      }
+      mergeDeep(target[key], source[key]);
+    }
+    else {
+      Object.assign(target, { [key]: source[key] });
+    }
+  }
+  return target;
+}
+
 // gets the full URL for the auth server at the given path
 function getAuthUrl(path) {
   return authUrl + path;
 }
 
+// awaits a promise with some time limit
+async function runWithTimeout(promise, timeout) {
+  let timeoutHandle;
+  const timeoutPromise = new Promise((_resolve, reject) => {
+      timeoutHandle = setTimeout(
+          () => reject(new Error('Timeout reached')),
+          timeout
+      );
+  });
+  return Promise.race([promise, timeoutPromise]).then(result => {
+      clearTimeout(timeoutHandle);
+      return result;
+  })
+}
+
+// fetches an HTTP resource with a timeout (which can be set with the 'timeout' parameter of options)
 async function fetchWithTimeout(resource, options = {}) {
   const { timeout = 8000 } = options;
   const controller = new AbortController();
@@ -15,6 +51,7 @@ async function fetchWithTimeout(resource, options = {}) {
   return response;
 }
 
+// given a response from the auth server, converts this to a login state object
 function loginStateFromResponse(response, isLogin = true) {
   let status = response.status;
   if ((status == 200) || (status == 401)) {
@@ -42,6 +79,56 @@ function getLocalLoginState() {
   return loginState;
 }
 
+// updates the current login state of the user stored in localstorage
+function setLocalLoginState(loginState) {
+  let localLoginState = getLocalLoginState();
+  if ((loginState === null) || (localLoginState === null)) {
+    localStorage.setItem('loginState', JSON.stringify(loginState));
+  }
+  else {
+    mergeDeep(localLoginState, loginState);
+    // Object.assign(localLoginState, loginState);
+    localStorage.setItem('loginState', JSON.stringify(localLoginState));
+  }
+}
+
+// returns true if a JWT is expired
+function tokenIsExpired(token) {
+  let expiry = token.exp * 1000;  // expiration time (milliseconds since epoch)
+  let currentTimestamp = Date.now();
+  return (currentTimestamp >= expiry);
+}
+
+// gets a new access token from the auth server
+// returns true if the refresh was successful
+async function refreshAccessToken(rememberMe) {
+  let success = false;
+  let loginState = getLocalLoginState();
+  if (loginState) {
+    let accessToken = loginState.data.access_token;
+    if (rememberMe == null) {
+      rememberMe = accessToken.remember_me;
+    }
+    console.log(`Refreshing access token (remember_me = ${rememberMe})...`);
+    let url = getAuthUrl('/refresh?remember_me=' + (rememberMe ? '1' : '0'));
+    await fetchWithTimeout(url, {method: 'POST', headers: {'Content-Type': 'application/json'}}).then((response) => {
+      if (response.status == 200) {
+        success = true;
+      }
+    }).catch((err) => {});
+  }
+  if (success) {
+    let loginState = await fetchUserLoginState();
+    console.log(loginState);
+    setLocalLoginState(loginState);
+    console.log('Successfully refreshed access token.');
+  }
+  else {
+    console.log('Failed to refresh access token.');
+  }
+  return success;
+}
+
 // refreshes the login state of the user
 // if the user has a valid access token, stores the token info in local storage
 async function refreshUserLoginState() {
@@ -52,13 +139,10 @@ async function refreshUserLoginState() {
   }
   if (loginState) {
     if (loginState.isLoggedIn) {  // user is logged in
-      let accessToken = loginState.data.access_token;
-      console.log(accessToken);
-      let expiry = accessToken.exp * 1000;  // expiration time (milliseconds since epoch)
-      let currentTimestamp = Date.now();
-      if (currentTimestamp >= expiry) {
-        // TODO: refresh access token
+      if (tokenIsExpired(loginState.data.access_token)) {
         console.log('Access token is expired.')
+        await refreshAccessToken();
+        return;
       }
       else {
         console.log('User is logged in.')
@@ -68,6 +152,34 @@ async function refreshUserLoginState() {
     else {  // not logged in
       console.log('User is not logged in.')
     }
-    localStorage.setItem('loginState', JSON.stringify(loginState));
+    setLocalLoginState(loginState);
+  }
+}
+
+// returns true if the user is currently logged in with a valid access token
+function isLoggedIn() {
+  let loginState = getLocalLoginState();
+  return (loginState != null) && loginState.isLoggedIn && (!tokenIsExpired(loginState.data.access_token));
+}
+
+// decorates a function to make it require a login (otherwise, redirects to login page)
+async function requiresLogin(func) {
+  let loggedIn = isLoggedIn();
+  // let loggedIn = true;
+  if (!loggedIn) {
+    let loginState = getLocalLoginState();
+    // if access token is expired, try to refresh it
+    if ((loginState != null) && loginState.isLoggedIn && tokenIsExpired(loginState.data.access_token)) {
+      let success = await refreshAccessToken();
+      if (success) {
+        loggedIn = true;
+      }
+    }
+  }
+  if (loggedIn) {
+    return func();
+  }
+  else {
+    redirectToLogin();
   }
 }

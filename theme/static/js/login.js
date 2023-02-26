@@ -1,9 +1,11 @@
+// refreshes the page based on the current login state
 function refreshLoginDisplay() {
   let loginState = getLocalLoginState();
   if (loginState.isLoggedIn) {
     try {
       let username = loginState.data.user.username;
-      $('.user-greeting').html(`Hello, <b>${username}</b>!`);
+      let link = '/profile';
+      $('.user-greeting').html(`Hello, <a class="username" href="${link}" onclick="loadProfile()"><b>${username}</b></a>!`);
     }
     catch {
       console.log('Could not get username.');
@@ -46,14 +48,29 @@ function loginToggle() {
   clearForm($('#signup-form'));
 }
 
+function redirectToLogin(elt) {
+  if (!isLoggedIn()) {
+    if (elt) {
+      elt.preventDefault();
+    }
+    let baseUrl = window.location.origin;
+    let loginUrl = new URL('/login', baseUrl);
+    let locUrl = new URL(window.location.href);
+    loginUrl.searchParams.set('redirect', locUrl);
+    console.log(`Redirecting to ${loginUrl}`);
+    window.location.replace(loginUrl);
+  }
+}
+
 $('#login-form').submit((elt) => {
   elt.preventDefault();
   clearInvalid(elt.target);
+  const rememberMe = $(elt.target).find('#remember-me').prop('checked');
   let formData = new FormData(elt.target);
-  const loginUrl = getAuthUrl('/login');
-  fetch(loginUrl, { method: 'POST', body: formData }).then(loginStateFromResponse).then((loginState) => {
+  const loginUrl = getAuthUrl('/login?remember_me=' + rememberMe.toString());
+  fetch(loginUrl, {method: 'POST', body: formData}).then(loginStateFromResponse).then((loginState) => {
     // store the login state
-    localStorage.setItem('loginState', JSON.stringify(loginState));
+    setLocalLoginState(loginState);
     if (loginState.status == 401) {  // authentication error
       let inputs = $(elt.target).find('input');
       $(inputs[1]).addClass('is-invalid');
@@ -78,62 +95,55 @@ $('#login-form').submit((elt) => {
 $('.logout-link').click((elt) => {
   elt.preventDefault();
   const logoutUrl = getAuthUrl('/logout');
-  fetch(logoutUrl, { method: 'POST' }).then((response) => {
+  fetch(logoutUrl, {method: 'POST'}).then((response) => {
     return loginStateFromResponse(response, false);
   }).then((loginState) => {
-    localStorage.setItem('loginState', JSON.stringify(loginState));
+    setLocalLoginState(loginState);
     console.log('User is logged out.');
     console.log('Login state:', loginState.data);
-    refreshLoginDisplay();
+    redirectToLogin();
+  }).catch(() => {
+    console.log('Could not connect to server for logout.');
+    setLocalLoginState(null);
   });
 });
 
-$('#signup-form').submit(function(elt) {
+$('#signup-form').submit((elt) => {
+  elt.preventDefault();
   clearInvalid(elt.target);
-  let obj = {};
+  let url = getAuthUrl('/users/create?welcome=true');
   let inputs = $(elt.target).find('input');
-  obj['username'] = inputs[0].value;
-  obj['email'] = inputs[1].value;
-  obj['password'] = inputs[2].value;
-  let body = JSON.stringify(obj);
-  let xhr = new XMLHttpRequest();
-  let url = authUrl + '/users/create?welcome=true';
-  xhr.open('POST', url, true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      if (xhr.status == 0) {
-        alert('Error: could not connect to Nessiness login server.')
-      }
-      let response = JSON.parse(xhr.responseText);
-      if (xhr.status == 409) {  // user or email already exists
-        let msg = response.detail;
-        let tokens = msg.split(' ');
-        let i = (tokens[2] == 'username') ? 0 : 1;
-        let token = (i == 0) ? 'Username' : 'Email';
-        $(inputs[i]).addClass('is-invalid');
-        $(inputs[i]).parent().append(`<div class="invalid-feedback">${token} already exists.</div>`);
-      }
-      else if (xhr.status == 422) {  // invalid email address
-        $(inputs[1]).addClass('is-invalid');
-        $(inputs[1]).parent().append('<div class="invalid-feedback">Invalid email address.</div>');
-      }
-      else if (xhr.status == 200) {
-        let email = inputs[1].value;
-        $('#signup-modal').modal('hide');
-        $('#signup-success .success-msg').html(`Account created successfully!<br><br>Sent email to <b>${email}</b>`);
-        $('#signup-success').fadeIn('fast', function() {
-          $(this).delay(5000).fadeOut('slow');
-        });
-        loginToggle();
-      }
-      else {
-        alert('Unknown error occurred.')
-      }
+  let body = JSON.stringify({username: inputs[0].value, email: inputs[1].value, password: inputs[2].value});
+  fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'}, body}).then((response) => {
+    return response.json().then((data) => {
+      return {status: response.status, data}
+    });
+  }).then((obj) => {
+    if (obj.status == 409) {  // conflict (user/e-mail already exists)
+      let err = obj.data.detail;
+      let tokens = err.split(' ');
+      let i = (tokens[2] == 'username') ? 0 : 1;
+      let token = (i == 0) ? 'Username' : 'Email';
+      $(inputs[i]).addClass('is-invalid');
+      $(inputs[i]).parent().append(`<div class="invalid-feedback">${token} already exists.</div>`);
     }
-  };
-  xhr.send(body);
-  return false;
+    else if (obj.status == 422) {  // invalid e-mail address
+      $(inputs[1]).addClass('is-invalid');
+      $(inputs[1]).parent().append('<div class="invalid-feedback">Invalid email address.</div>');
+    }
+    else if (obj.status == 200) {  // signup successful
+      let email = inputs[1].value;
+      $('#signup-modal').modal('hide');
+      $('#signup-success .success-msg').html(`Account created successfully!<br><br>Sent email to <b>${email}</b>`);
+      $('#signup-success').fadeIn('fast', () => {
+        $('#signup-success').delay(5000).fadeOut('slow');
+      });
+      loginToggle();
+    }
+    else {
+      alert('Unknown error occurred.')
+    }
+  });
 });
 
 $('#signup-toggle').click(signupToggle);

@@ -1,0 +1,34 @@
+@import "variables.less";
+
+#profile-box {
+    margin: 0 auto;
+    width: fit-content;
+    min-width: 400px;
+}
+
+#profile-table {
+    margin: 0 auto;
+    text-align: center;
+    border: none;
+    font-size: 14pt;
+
+    td {
+        border: none;
+
+        &:first-child {
+            font-weight: bold;
+            text-align: right;
+        }
+        &:last-child {
+            text-align: left;
+        }
+
+        .remember-me {
+            margin-right: 0.5em;
+
+            input {
+                margin: 0 0.2em;
+            }
+        }
+    }
+}

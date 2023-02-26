@@ -27,4 +27,10 @@ $(document).ready(function () {
   if (!found_link) {
     $(links[0]).addClass('active-link');
   }
+
+  $(function () {
+    $("[rel='tooltip']").tooltip({selector: "[title]"});
+  });
+
+  // $(document.body).tooltip({ selector: "[title]" });
 });

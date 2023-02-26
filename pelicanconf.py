@@ -34,7 +34,8 @@ STATIC_PATHS = ['docs', 'images']
 
 TEMPLATE_PAGES = {
     'login.html': 'login.html',
-    'pages/projects.html': 'pages/projects.html'
+    'pages/projects.html': 'pages/projects.html',
+    'profile.html': 'profile.html',
 }
 
 TIMEZONE = 'America/New_York'
