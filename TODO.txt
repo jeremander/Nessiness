@@ -1,6 +1,4 @@
 - Login features
-    - Need behavior to be sensible when can't connect to auth server
-        - When login expires, get rid of greeting
     - Delete account
     - Change e-mail address
         - e-mail confirmation

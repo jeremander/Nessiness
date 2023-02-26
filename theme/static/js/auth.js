@@ -53,8 +53,12 @@ async function fetchWithTimeout(resource, options = {}) {
 
 // given a response from the auth server, converts this to a login state object
 function loginStateFromResponse(response, isLogin = true) {
+  if (!response) {
+    return null;
+  }
   let status = response.status;
-  if ((status == 200) || (status == 401)) {
+  const validCodes = [200, 400, 401];
+  if (validCodes.includes(status)) {
     return response.json().then((data) => {
       let isLoggedIn = isLogin ? (status == 200) : false;
       return { status, data, isLoggedIn };
@@ -68,7 +72,7 @@ function loginStateFromResponse(response, isLogin = true) {
 // gets the current login state of the user, returning null if the user is not logged in (or timeout occurs)
 async function fetchUserLoginState() {
   const url = getAuthUrl('/users/me');
-  const response = await fetchWithTimeout(url, {timeout: 3000});
+  const response = await fetchWithTimeout(url, {timeout: 3000}).catch((err) => {});
   return loginStateFromResponse(response);
 }
 

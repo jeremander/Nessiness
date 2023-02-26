@@ -1,8 +1,8 @@
 // refreshes the page based on the current login state
 function refreshLoginDisplay() {
-  let loginState = getLocalLoginState();
-  if (loginState.isLoggedIn) {
+  if (isLoggedIn()) {
     try {
+      let loginState = getLocalLoginState();
       let username = loginState.data.user.username;
       let link = '/profile';
       $('.user-greeting').html(`Hello, <a class="username" href="${link}" onclick="loadProfile()"><b>${username}</b></a>!`);
@@ -68,10 +68,15 @@ $('#login-form').submit((elt) => {
   const rememberMe = $(elt.target).find('#remember-me').prop('checked');
   let formData = new FormData(elt.target);
   const loginUrl = getAuthUrl('/login?remember_me=' + rememberMe.toString());
-  fetch(loginUrl, {method: 'POST', body: formData}).then(loginStateFromResponse).then((loginState) => {
+  fetch(loginUrl, {method: 'POST', body: formData}).catch((err) => {
+    return new Response(JSON.stringify({detail: 'Network error'}), {status: 400});
+  }).then(loginStateFromResponse).then((loginState) => {
     // store the login state
     setLocalLoginState(loginState);
-    if (loginState.status == 401) {  // authentication error
+    if (loginState.status == 400) {  // server error
+      alert(loginState.data.detail);
+    }
+    else if (loginState.status == 401) {  // authentication error
       let inputs = $(elt.target).find('input');
       $(inputs[1]).addClass('is-invalid');
       let err = loginState.data.detail;
@@ -101,10 +106,11 @@ $('.logout-link').click((elt) => {
     setLocalLoginState(loginState);
     console.log('User is logged out.');
     console.log('Login state:', loginState.data);
-    redirectToLogin();
   }).catch(() => {
     console.log('Could not connect to server for logout.');
     setLocalLoginState(null);
+  }).finally(() => {
+    redirectToLogin();
   });
 });
 

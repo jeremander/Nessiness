@@ -65,9 +65,9 @@ function loadProfile() {
         addRow('Refresh token expires', datetimeToStr(refreshExpires));
       }
     }
-    $(function () {
-      $("[rel='tooltip']").tooltip({selector: "[title]"});
-    });
+    // $(function () {
+    //   $("[rel='tooltip']").tooltip({selector: "[title]"});
+    // });
   });
 }
 
