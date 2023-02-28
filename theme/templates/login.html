@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros.html" as macros %}
 
 {% block title %} &ndash; Login {% endblock %}
 
@@ -86,12 +87,7 @@
     </div>
   </div>
 
-  <div id="signup-success" class="alert alert-success alert-dismissible" style="display: none" role="alert">
-    <span class="success-msg"></span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+  {{ macros.flash_alert("signup-success", "", "alert-success") }}
 
 </article>
 

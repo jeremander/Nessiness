@@ -4,6 +4,8 @@
   {%- endmacro -%}
 {% endif %}
 
+{% import "macros.html" as macros %}
+
 <!DOCTYPE html>
 <html lang="{{ DEFAULT_LANG }}">
 <head>
@@ -303,6 +305,8 @@
     {% block content %}
     {% endblock %}
 
+    {{ macros.flash_alert("delete-account-success", "", "alert-danger") }}
+
     <footer>
       {% if CC_LICENSE %}
         {% include "partial/cc_license.html" %}
@@ -351,6 +355,7 @@
   </script>
 
   <!-- Local JS imports -->
+  <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/utils.js"></script>
   <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/auth.js"></script>
   <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/login.js"></script>
   <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/profile.js"></script>

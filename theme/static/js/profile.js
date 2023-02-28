@@ -65,6 +65,8 @@ function loadProfile() {
         addRow('Refresh token expires', datetimeToStr(refreshExpires));
       }
     }
+
+    $('#delete-account-msg').html(`Delete your Nessiness account? All data associated with <b>${user.username}</b> will be deleted.`);
     // $(function () {
     //   $("[rel='tooltip']").tooltip({selector: "[title]"});
     // });
@@ -75,4 +77,11 @@ $('#profile-table tbody').on('change', 'input[type=radio][name=remember-me]', fu
   // refresh the access token when user toggles 'remember me'
   let rememberMe = (this.value == 'yes');
   refreshAccessToken(rememberMe);
+});
+
+$('#delete-account-btn').click((elt) => {
+  let username = getCurrentUser();
+  $('#delete-account-modal').modal('hide');
+  localStorage.setItem('deletedUser', username);
+  redirectToRoute('/', false);
 });

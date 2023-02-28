@@ -53,12 +53,7 @@ function redirectToLogin(elt) {
     if (elt) {
       elt.preventDefault();
     }
-    let baseUrl = window.location.origin;
-    let loginUrl = new URL('/login', baseUrl);
-    let locUrl = new URL(window.location.href);
-    loginUrl.searchParams.set('redirect', locUrl);
-    console.log(`Redirecting to ${loginUrl}`);
-    window.location.replace(loginUrl);
+    redirectToRoute('/login', true);
   }
 }
 
@@ -140,10 +135,8 @@ $('#signup-form').submit((elt) => {
     else if (obj.status == 200) {  // signup successful
       let email = inputs[1].value;
       $('#signup-modal').modal('hide');
-      $('#signup-success .success-msg').html(`Account created successfully!<br><br>Sent email to <b>${email}</b>`);
-      $('#signup-success').fadeIn('fast', () => {
-        $('#signup-success').delay(5000).fadeOut('slow');
-      });
+      $('#signup-success .flash-alert-content').html(`Account created successfully!<br><br>Sent email to <b>${email}</b>`);
+      flashAlert('#signup-success');
       loginToggle();
     }
     else {

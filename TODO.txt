@@ -1,11 +1,13 @@
 - Login features
     - Delete account
+        - test signup alert works properly
     - Change e-mail address
         - e-mail confirmation
     - Change password
         - e-mail confirmation
-- blog posts?
-
+- Nessiness Twitter & Mastodon accounts
+- Blog posts
+    - Set up to import to Medium
 - Profile
     - notice about cookies via tooltip
         - tried & failed with Bootstrap (try CSS-only?)

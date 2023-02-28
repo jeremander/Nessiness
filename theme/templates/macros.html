@@ -1,0 +1,8 @@
+{% macro flash_alert(id, content, extra_classes='') %}
+    <div id="{{id}}" class="alert flash-alert alert-dismissible {{extra_classes}}" style="display: none" role="alert">
+      <span class="flash-alert-content">{{content | safe}}</span>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+{% endmacro %}

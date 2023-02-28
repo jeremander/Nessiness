@@ -83,6 +83,19 @@ function getLocalLoginState() {
   return loginState;
 }
 
+// gets the name of the current user, if possible, otherwise returns null
+function getCurrentUser() {
+  let loginState = getLocalLoginState();
+  if (loginState) {
+    if (loginState.data) {
+      if (loginState.data.user) {
+        return loginState.data.user.username;
+      }
+    }
+  }
+  return null;
+}
+
 // updates the current login state of the user stored in localstorage
 function setLocalLoginState(loginState) {
   let localLoginState = getLocalLoginState();

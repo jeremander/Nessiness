@@ -28,6 +28,14 @@ $(document).ready(function () {
     $(links[0]).addClass('active-link');
   }
 
+  // flash message about just-deleted user
+  let deletedUser = localStorage.getItem('deletedUser');
+  if (deletedUser) {
+    $('#delete-account-success .flash-alert-content').html(`Successfully deleted account for <b>${deletedUser}</b>.`);
+    localStorage.removeItem('deletedUser');
+    flashAlert('#delete-account-success');
+  }
+
   // $(function () {
   //   $("[rel='tooltip']").tooltip({selector: "[title]"});
   // });
