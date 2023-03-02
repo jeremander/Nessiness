@@ -1,5 +1,4 @@
 @import "variables.less";
-@import "login.less";
 
 html, body {
   width: 100%;
@@ -48,13 +47,14 @@ body {
   background-color: @body-bg;
   color: @text-color;
   font-family: @sans;
+  // font-size: 1.02em;
   font-size: 13pt;
   line-height: 1.2em;
 }
 
 a {
   color: @link-color;
-  text-decoration: none !important;
+  text-decoration: none;
 
   &.active-link {
     color: @sidebar-active-link-color;
@@ -127,10 +127,6 @@ aside {
     padding: 15px 20px;
     margin: 0;
 
-    @media @phone-down {
-        padding: 15px 15px;
-    }
-
     img.sitelogo {
       border-radius: 50%;
       max-height: 110px;
@@ -183,28 +179,28 @@ aside {
 
 main {
 
-//   nav {
-//     text-align: center;
-//     text-transform: uppercase;
-//     padding: 14px 0 14px 0;
-//     border-bottom: @nav-border-color 1px solid;
+  nav {
+    text-align: center;
+    text-transform: uppercase;
+    padding: 14px 0 14px 0;
+    border-bottom: @nav-border-color 1px solid;
 
-//     // Need to use font-size of 0 so that whitespace between the <a> tags
-//     // doesn't have an affect on alignment.
-//     font-size: 0;
-//   }
+    // Need to use font-size of 0 so that whitespace between the <a> tags
+    // doesn't have an affect on alignment.
+    font-size: 0;
+  }
 
-//   nav, .translations {
-//     a {
-//       font-size: 12px;
-//       padding: 0 4px;
-//       border-right: @nav-border-color 1px solid;
-//     }
+  nav, .translations {
+    a {
+      font-size: 12px;
+      padding: 0 4px;
+      border-right: @nav-border-color 1px solid;
+    }
 
-//     :last-child {
-//       border-right: none;
-//     }
-//   }
+    :last-child {
+      border-right: none;
+    }
+  }
 
   .neighbors {
     margin: 4% 0% 4% 0%;
@@ -468,7 +464,7 @@ ul.list, ul.social, ul.related-posts {
 }
 
 ul.list {
-  padding: 0.5em 0;
+  padding: 1em 0 1em 0;
 
   li {
     padding: 4px;
@@ -637,7 +633,7 @@ ul.social {
       }
 
       ul.social {
-        padding: 0.75em 0em;
+        padding-top: 32px;
       }
     }
   }
