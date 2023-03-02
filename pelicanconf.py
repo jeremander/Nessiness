@@ -51,6 +51,7 @@ LINKS = [('Home', SITEURL), ('Projects', f'{SITEURL}/pages/projects.html')]
 DISABLE_URL_HASH = True
 
 PAGES_SORT_ATTRIBUTE = 'category'
+FILENAME_METADATA = '(?P<date>\d{4}\d{2}\d{2})_(?P<slug>.*)'
 
 # Social widget
 SOCIAL = [
