@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet/less" type="text/css" href="https://nessiness.com/theme/stylesheet/style.less">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js" type="text/javascript"></script>
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://nessiness.com/theme/pygments/github.min.css">
+
+  <script src="https://nessiness.com/theme/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" type="text/css" href="https://nessiness.com/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://nessiness.com/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://nessiness.com/theme/font-awesome/css/solid.css">
+
+
+    <link href="https://nessiness.com/feed/all.atom.xml" type="application/atom+xml" rel="alternate" title="Nessiness Atom">
+
+
+    <link rel="apple-touch-icon" href="https://nessiness.com/images/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="shortcut icon" href="https://nessiness.com/images/favicons/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="shortcut icon" href="https://nessiness.com/images/favicons/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="manifest" href="https://nessiness.com/images/favicons/site.webmanifest">
+
+
+
+
+
+
+
+<meta name="author" content="Jeremy Silver" />
+<meta name="description" content="Using OpenAI Whisper and ffmpeg to add captions to your videos." />
+<meta name="keywords" content="AI, Machine Learning, Python, video">
+
+
+<meta property="og:site_name" content="Nessiness"/>
+<meta property="og:title" content="Adding Captions to Video with AI"/>
+<meta property="og:description" content="Using OpenAI Whisper and ffmpeg to add captions to your videos."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://nessiness.com/captioning_with_ai.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2023-03-01 00:00:00-05:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://nessiness.com/author/jeremy-silver.html">
+<meta property="article:section" content="Machine Learning"/>
+<meta property="article:tag" content="AI"/>
+<meta property="article:tag" content="Machine Learning"/>
+<meta property="article:tag" content="Python"/>
+<meta property="article:tag" content="video"/>
+<meta property="og:image" content="https://nessiness.com/images/logo.png">
+
+  <title>Nessiness &ndash; Adding Captions to Video with AI</title>
+
+</head>
+<body class="light-theme">
+  <nav class="topbar">
+
+  </nav>
+
+  <aside>
+    <div>
+      <a href="https://nessiness.com">
+        <img class="sitelogo" src="https://nessiness.com/images/logo.png" alt="Nessiness" title="Nessiness">
+      </a>
+
+      <h1 class="sitetitle">
+        <a href="https://nessiness.com">Nessiness</a>
+      </h1>
+      <h2 class="nessiness-def">n. Random stuff or things.</h2>
+
+
+
+      <nav class="nav-links">
+        <ul class="list">
+
+
+            <li>
+              <a target="_self" href="https://nessiness.com" >Home</a>
+            </li>
+            <li>
+              <a target="_self" href="https://nessiness.com/pages/projects.html" >Projects</a>
+            </li>
+
+              <li>
+                <a target="_self"
+                   href="https://nessiness.com/pages/about.html">
+                  About
+                </a>
+              </li>
+              <li>
+                <a target="_self"
+                   href="https://nessiness.com/pages/links.html">
+                  Links
+                </a>
+              </li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/Morosoph1729" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/jeremander" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="https://nessiness.com/feed/atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-envelope" href="mailto:jeremys@nessiness.com?subject=Nessiness" target="_blank">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="captioning_with_ai">Adding Captions to Video with AI</h1>
+    <p>
+      Posted on Wed 01 March 2023 in <a href="https://nessiness.com/category/machine-learning.html">Machine Learning</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>Hi all! After a long hiatus, this is my first "real" blog post with actual content. 😆</p>
+<p>In this day and age, <a href="https://www.w3.org/WAI/fundamentals/accessibility-intro/">web accessibility</a> is all but essential, and captioning video is a key part of that. Platforms like YouTube will now caption uploaded videos by default in most circumstances, but sometimes you may be working with other platforms or creating your own videos, so you'll need to create the captions yourself.</p>
+<p>Last weekend my friend who's a music teacher asked me for help adding captions to a video, for the benefit of a hearing-impaired student. A quick Google search brought up many web-based services that use machine learning to generate captions from audio, but these tended to require registration and limit the features available without a monthly subscription (for example, video duration).</p>
+<p>Since I fancy myself a command-line warrior, and since it seemed onerous to upload/download a video just to edit it, I sought a more efficient solution. Searching Github led me to an elegant Python package called <a href="https://github.com/m1guelpf/auto-subtitle">auto-subtitle</a>.</p>
+<p><code>auto-subtitle</code> makes use of OpenAI's <a href="https://openai.com/research/whisper">Whisper</a> system for automatic speech recognition and translation (yes, that's the same OpenAI who brought us <a href="https://chat.openai.com">ChatGPT</a>). Below I'll go through the steps of how I used this tool to create video captions.</p>
+<h2 id="step-0-install-auto-subtitle">Step 0: Install auto-subtitle</h2>
+<p>Follow the install instructions on the Github <a href="https://github.com/m1guelpf/auto-subtitle">page</a>.</p>
+<p>(<strong>NOTE</strong>: I had trouble installing it using Python 3.11, which is apparently too new to support PyTorch; I got around this by reverting to Python 3.9 using <a href="https://github.com/pyenv/pyenv">pyenv</a>).</p>
+<h2 id="step-1-generate-captions">Step 1: Generate captions</h2>
+<p>Let's say we have a video we want to caption. As a test example, I downloaded <a href="https://www.youtube.com/watch?v=CGmfGaZecHA">this video</a>, naming it <code>video.mp4</code>.</p>
+<p>To caption it with Whisper AI, it took just a single command:</p>
+<div class="highlight"><pre><span></span><code>auto_subtitle video.mp4 -o caption --output_srt True --verbose True
+</code></pre></div>
+
+<p>I provided the name of the video and an output directory. I also added some flags, <code>--output_srt True</code> to save the subtitle file (more on that later), and <code>--verbose True</code> to have the program print info as it runs.</p>
+<p>Here is what it printed out:</p>
+<div class="highlight"><pre><span></span><code>Extracting audio from video...
+Generating subtitles for video... This might take a while.
+Detecting language using up to the first 30 seconds. Use
+`--language` to specify the language
+Detected language: English
+[00:00.000 --&gt; 00:06.120]  Hello everyone. In this lesson about
+the origins of the orchestra, we will be looking
+[00:06.120 --&gt; 00:11.440]  at the types of music that appeared
+during the Baroque era.
+[00:11.440 --&gt; 00:18.080]  Music and many other art forms began
+to flourish between 1600 and 1750, during a time we now
+[00:18.080 --&gt; 00:25.520]  call the Baroque era. In the early
+1600s, theatre was big in England, where Shakespeare
+...
+</code></pre></div>
+
+<p>This took about a minute to run (the video was 3.5 minutes). Verbose mode was very helpful since it let me monitor the speed and accuracy of the transcription as it progressed. Two files were saved in the <code>caption</code> folder, <code>video.mp4</code> (captioned version) and <code>video.srt</code>.</p>
+<p>As you can see from the sample above, the quality of the transcription is impeccable, as one might expect of OpenAI's recent cutting-edge language models. I was particularly impressed with how well it did on proper names, and it also seemed to be completely robust to ambient noise and music (this test video plays light orchestral music throughout).</p>
+<p><code>auto-subtitle</code> is also capable of doing translation from other languages into English, but I have not yet tested this out in depth.</p>
+<h2 id="step-2-fix-up-mistakes">Step 2: Fix up mistakes</h2>
+<p>Although the language model can transcribe speech almost perfectly, there may still be some minor errors to fix up. If you're in a hurry and don't care about perfection, you can take the auto-generated video and go about your day. But if you want to make some tweaks, there are a couple approaches:</p>
+<ol>
+<li>
+<p>Use a subtitle editing program (for example, <a href="https://www.nikse.dk/subtitleedit">Subtitle Edit</a>, which seems pretty good). This lets you edit subtitles while watching the video in real time.</p>
+</li>
+<li>
+<p>Edit the <code>.srt</code> subtitle file in a text editor, then combine it with the original video.</p>
+</li>
+</ol>
+<p>I went with option #2.</p>
+<p>The SRT file format is dead simple. It's just a text file containing caption text segments, along with their time ranges:</p>
+<div class="highlight"><pre><span></span><code>1
+0:00:00.000 --&gt; 0:00:06.120
+Hello everyone. In this lesson about the origins of the orchestra,
+we will be looking
+
+2
+0:00:06.120 --&gt; 0:00:11.440
+at the types of music that appeared during the Baroque era.
+
+3
+0:00:11.440 --&gt; 0:00:18.080
+Music and many other art forms began to flourish between 1600 and
+1750, during a time we now
+
+...
+</code></pre></div>
+
+<p>As I said earlier, the transcription of this video was near-perfect. The <em>very minor</em> issues I had were:</p>
+<ol>
+<li>
+<p>Punctuation errors. In particular, some sentences were wanting commas.</p>
+</li>
+<li>
+<p>A couple of typos on the "rarer" musical terms. Namely, "bourrée" was spelled "beret," and "gigue" was "gig." But it had no problem with names like Monteverdi and Versailles. (Aside: this video had a lot of text displayed in the video itself; I think a cool feature of <code>auto-subtitle</code> would be to "enhance" the language model by favoring words/spellings that appear in the video&mdash;this would have detected "bourrée" and "gigue".)</p>
+</li>
+<li>
+<p>This was more in other videos I tested, but sometimes the timings were off a little bit. This happened most when there were vacant stretches of noise or silence.</p>
+</li>
+</ol>
+<p>I went ahead and fixed these small mistakes in my text editor. SRT also supports a handful of HTML-like markup tags. So for instance, I was able to italicize <em>basso continuo</em> by tagging it like <code>&lt;i&gt;basso continuo&lt;/i&gt;</code>. You can also change font color like <code>&lt;font color="green"&gt;...&lt;/font&gt;</code>.</p>
+<h2 id="step-3-recombine-srt-with-video">Step 3: Recombine SRT with video</h2>
+<p>The last step is to combine the fixed-up SRT file with the original video. For this I used the venerable <a href="http://ffmpeg.org">ffmpeg</a> library, like so:</p>
+<div class="highlight"><pre><span></span><code>ffmpeg -i video.mp4 -vf subtitles=caption/video.srt caption/video.final.mp4
+</code></pre></div>
+
+<p>(<strong>NOTE</strong>: make sure to input the original video, <em>not</em> the already-captioned one, since by default it will overlay the new captions on top of the old ones, which is not what you want.)</p>
+<p>If you don't like the default appearance of the captions, you can control various things like font size and position using the <code>force_style</code> option.</p>
+<h3 id="digression-on-efficiency">Digression: on efficiency</h3>
+<p>While I do love <code>ffmpeg</code> (and so does <a href="https://www.youtube.com/watch?v=9kaIXkImCAM">this guy</a>), there is a downside to this approach compared to a proper subtitle editor, which is that you don't get instant feedback. Whenever you want to make a new change to the captions, you have to re-merge them with the video, which can take some time. In my case, I was just fixing up some typos, so this approach worked just fine.</p>
+<p>However, there's another way to do this using a "softsub" instead of a "hardsub." Certain formats like MKV support captions natively, and it's much less work for <code>ffmpeg</code> to simply "embed" the captions into the file rather than "burning it into" the video itself. Here's an example of how to do this:</p>
+<div class="highlight"><pre><span></span><code>ffmpeg -i video.mp4 -i caption/video.srt -codec copy -map 0 -map 1 caption/video.softsub.mkv
+</code></pre></div>
+
+<p>Note this will not work if you set the output extension to <code>.mp4</code> because that format does not support softsubs.</p>
+<p>On my test video, the softsub command took 0.1 seconds to run, compared to 24 seconds for the hardsub&mdash;over 200 times faster!</p>
+<p>You can open MKV files in most media players. I used VLC, but one pitfall I had was that the captions didn't show up immediately; I had to activate Track 1 in the Subtitle menu first.</p>
+<p>The method above does not seem to let you set formatting options for the captions, but there are other ways to do it. One such way is to convert the SRT into an ASS file (yes, you heard me... an <a href="https://fileformats.fandom.com/wiki/SubStation_Alpha">ASS</a> file).</p>
+<div class="highlight"><pre><span></span><code>ffmpeg<span class="w"> </span>-i<span class="w"> </span>caption/video.srt<span class="w"> </span>caption/video.ass
+</code></pre></div>
+
+<p>This file contains some header data that lets you control the styles. You can then merge the ASS 🍑 into your video using the same <code>ffmpeg</code> command as before.</p>
+<p>That said, the ASS format and others like it seem much more complicated to work with than SRT; at that point you may be better off just using a graphical subtitle editor.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The subtitled version of my test video, following the procedures above, can be found <a href="https://www.youtube.com/watch?v=89Jy7EZQrzs">here</a>. You can learn a thing or two about my favorite musical genre. 😉🎶</p>
+<p>Anyway, I found this whole exercise to be pretty eye-opening, and it shows how easy it is to put high-quality captions on your videos without breaking the bank. I hope this explainer has been useful to you!</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://nessiness.com/tag/ai.html">AI</a>
+      <a href="https://nessiness.com/tag/machine-learning.html">Machine Learning</a>
+      <a href="https://nessiness.com/tag/python.html">Python</a>
+      <a href="https://nessiness.com/tag/video.html">video</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; 2023 Nessiness</p>
+<p class="footer-pelican">
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Nessiness ",
+  "url" : "https://nessiness.com",
+  "image": "https://nessiness.com/images/logo.png",
+  "description": ""
+}
+</script>
+
+
+  <!-- Main JS code -->
+  <script src="https://nessiness.com/theme/js/main.js"></script>
+
+</body>
+</html>
