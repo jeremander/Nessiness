@@ -13,13 +13,13 @@ Since I fancy myself a command-line warrior, and since it seemed onerous to uplo
 
 `auto-subtitle` makes use of OpenAI's [Whisper](https://openai.com/research/whisper) system for automatic speech recognition and translation (yes, that's the same OpenAI who brought us [ChatGPT](https://chat.openai.com)). Below I'll go through the steps of how I used this tool to create video captions.
 
-## Step 0: Install auto-subtitle
+### Step 0: Install auto-subtitle
 
 Follow the install instructions on the Github [page](https://github.com/m1guelpf/auto-subtitle).
 
 (__NOTE__: I had trouble installing it using Python 3.11, which is apparently too new to support PyTorch; I got around this by reverting to Python 3.9 using [pyenv](https://github.com/pyenv/pyenv)).
 
-## Step 1: Generate captions
+### Step 1: Generate captions
 
 Let's say we have a video we want to caption. As a test example, I downloaded [this video](https://www.youtube.com/watch?v=CGmfGaZecHA), naming it `video.mp4`.
 
@@ -56,7 +56,7 @@ As you can see from the sample above, the quality of the transcription is impecc
 
 `auto-subtitle` is also capable of doing translation from other languages into English, but I have not yet tested this out in depth.
 
-## Step 2: Fix up mistakes
+### Step 2: Fix up mistakes
 
 Although the language model can transcribe speech almost perfectly, there may still be some minor errors to fix up. If you're in a hurry and don't care about perfection, you can take the auto-generated video and go about your day. But if you want to make some tweaks, there are a couple approaches:
 
@@ -96,7 +96,7 @@ As I said earlier, the transcription of this video was near-perfect. The _very m
 
 I went ahead and fixed these small mistakes in my text editor. SRT also supports a handful of HTML-like markup tags. So for instance, I was able to italicize _basso continuo_ by tagging it like `<i>basso continuo</i>`. You can also change font color like `<font color="green">...</font>`.
 
-## Step 3: Recombine SRT with video
+### Step 3: Recombine SRT with video
 
 The last step is to combine the fixed-up SRT file with the original video. For this I used the venerable [ffmpeg](http://ffmpeg.org) library, like so:
 
@@ -108,7 +108,7 @@ ffmpeg -i video.mp4 -vf subtitles=caption/video.srt caption/video.final.mp4
 
 If you don't like the default appearance of the captions, you can control various things like font size and position using the `force_style` option.
 
-### Digression: on efficiency
+#### Digression: on efficiency
 
 While I do love `ffmpeg` (and so does [this guy](https://www.youtube.com/watch?v=9kaIXkImCAM)), there is a downside to this approach compared to a proper subtitle editor, which is that you don't get instant feedback. Whenever you want to make a new change to the captions, you have to re-merge them with the video, which can take some time. In my case, I was just fixing up some typos, so this approach worked just fine.
 
@@ -134,8 +134,8 @@ This file contains some header data that lets you control the styles. You can th
 
 That said, the ASS format and others like it seem much more complicated to work with than SRT; at that point you may be better off just using a graphical subtitle editor.
 
-## Conclusion
+### Conclusion
 
-The subtitled version of my test video, following the procedures above, can be found [here](https://www.youtube.com/watch?v=89Jy7EZQrzs). You can learn a thing or two about my favorite musical genre. 😉🎶
+The captioned version of my test video, following the procedures above, can be found [here](https://www.youtube.com/watch?v=89Jy7EZQrzs). You can learn a thing or two about my favorite musical genre. 😉🎶
 
 Anyway, I found this whole exercise to be pretty eye-opening, and it shows how easy it is to put high-quality captions on your videos without breaking the bank. I hope this explainer has been useful to you!
