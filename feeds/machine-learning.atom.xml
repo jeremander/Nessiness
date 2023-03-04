@@ -4,10 +4,10 @@
 &lt;p&gt;Last weekend my friend who's a music teacher asked me for help adding captions to a video, for the benefit of a hearing-impaired student. A quick Google search brought up many web-based services that use machine learning to generate captions from audio, but these tended to require registration and limit the features available without a monthly subscription (for example, video duration).&lt;/p&gt;
 &lt;p&gt;Since I fancy myself a command-line warrior, and since it seemed onerous to upload/download a video just to edit it, I sought a more efficient solution. Searching Github led me to an elegant Python package called &lt;a href="https://github.com/m1guelpf/auto-subtitle"&gt;auto-subtitle&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;auto-subtitle&lt;/code&gt; makes use of OpenAI's &lt;a href="https://openai.com/research/whisper"&gt;Whisper&lt;/a&gt; system for automatic speech recognition and translation (yes, that's the same OpenAI who brought us &lt;a href="https://chat.openai.com"&gt;ChatGPT&lt;/a&gt;). Below I'll go through the steps of how I used this tool to create video captions.&lt;/p&gt;
-&lt;h2 id="step-0-install-auto-subtitle"&gt;Step 0: Install auto-subtitle&lt;/h2&gt;
+&lt;h3 id="step-0-install-auto-subtitle"&gt;Step 0: Install auto-subtitle&lt;/h3&gt;
 &lt;p&gt;Follow the install instructions on the Github &lt;a href="https://github.com/m1guelpf/auto-subtitle"&gt;page&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;(&lt;strong&gt;NOTE&lt;/strong&gt;: I had trouble installing it using Python 3.11, which is apparently too new to support PyTorch; I got around this by reverting to Python 3.9 using &lt;a href="https://github.com/pyenv/pyenv"&gt;pyenv&lt;/a&gt;).&lt;/p&gt;
-&lt;h2 id="step-1-generate-captions"&gt;Step 1: Generate captions&lt;/h2&gt;
+&lt;h3 id="step-1-generate-captions"&gt;Step 1: Generate captions&lt;/h3&gt;
 &lt;p&gt;Let's say we have a video we want to caption. As a test example, I downloaded &lt;a href="https://www.youtube.com/watch?v=CGmfGaZecHA"&gt;this video&lt;/a&gt;, naming it &lt;code&gt;video.mp4&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;To caption it with Whisper AI, it took just a single command:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;auto_subtitle video.mp4 -o caption --output_srt True --verbose True
@@ -34,7 +34,7 @@ to flourish between 1600 and 1750, during a time we now
 &lt;p&gt;This took about a minute to run (the video was 3.5 minutes). Verbose mode was very helpful since it let me monitor the speed and accuracy of the transcription as it progressed. Two files were saved in the &lt;code&gt;caption&lt;/code&gt; folder, &lt;code&gt;video.mp4&lt;/code&gt; (captioned version) and &lt;code&gt;video.srt&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;As you can see from the sample above, the quality of the transcription is impeccable, as one might expect of OpenAI's recent cutting-edge language models. I was particularly impressed with how well it did on proper names, and it also seemed to be completely robust to ambient noise and music (this test video plays light orchestral music throughout).&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;auto-subtitle&lt;/code&gt; is also capable of doing translation from other languages into English, but I have not yet tested this out in depth.&lt;/p&gt;
-&lt;h2 id="step-2-fix-up-mistakes"&gt;Step 2: Fix up mistakes&lt;/h2&gt;
+&lt;h3 id="step-2-fix-up-mistakes"&gt;Step 2: Fix up mistakes&lt;/h3&gt;
 &lt;p&gt;Although the language model can transcribe speech almost perfectly, there may still be some minor errors to fix up. If you're in a hurry and don't care about perfection, you can take the auto-generated video and go about your day. But if you want to make some tweaks, there are a couple approaches:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -76,14 +76,14 @@ Music and many other art forms began to flourish between 1600 and
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;I went ahead and fixed these small mistakes in my text editor. SRT also supports a handful of HTML-like markup tags. So for instance, I was able to italicize &lt;em&gt;basso continuo&lt;/em&gt; by tagging it like &lt;code&gt;&amp;lt;i&amp;gt;basso continuo&amp;lt;/i&amp;gt;&lt;/code&gt;. You can also change font color like &lt;code&gt;&amp;lt;font color="green"&amp;gt;...&amp;lt;/font&amp;gt;&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id="step-3-recombine-srt-with-video"&gt;Step 3: Recombine SRT with video&lt;/h2&gt;
+&lt;h3 id="step-3-recombine-srt-with-video"&gt;Step 3: Recombine SRT with video&lt;/h3&gt;
 &lt;p&gt;The last step is to combine the fixed-up SRT file with the original video. For this I used the venerable &lt;a href="http://ffmpeg.org"&gt;ffmpeg&lt;/a&gt; library, like so:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ffmpeg -i video.mp4 -vf subtitles=caption/video.srt caption/video.final.mp4
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;(&lt;strong&gt;NOTE&lt;/strong&gt;: make sure to input the original video, &lt;em&gt;not&lt;/em&gt; the already-captioned one, since by default it will overlay the new captions on top of the old ones, which is not what you want.)&lt;/p&gt;
 &lt;p&gt;If you don't like the default appearance of the captions, you can control various things like font size and position using the &lt;code&gt;force_style&lt;/code&gt; option.&lt;/p&gt;
-&lt;h3 id="digression-on-efficiency"&gt;Digression: on efficiency&lt;/h3&gt;
+&lt;h4 id="digression-on-efficiency"&gt;Digression: on efficiency&lt;/h4&gt;
 &lt;p&gt;While I do love &lt;code&gt;ffmpeg&lt;/code&gt; (and so does &lt;a href="https://www.youtube.com/watch?v=9kaIXkImCAM"&gt;this guy&lt;/a&gt;), there is a downside to this approach compared to a proper subtitle editor, which is that you don't get instant feedback. Whenever you want to make a new change to the captions, you have to re-merge them with the video, which can take some time. In my case, I was just fixing up some typos, so this approach worked just fine.&lt;/p&gt;
 &lt;p&gt;However, there's another way to do this using a "softsub" instead of a "hardsub." Certain formats like MKV support captions natively, and it's much less work for &lt;code&gt;ffmpeg&lt;/code&gt; to simply "embed" the captions into the file rather than "burning it into" the video itself. Here's an example of how to do this:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ffmpeg -i video.mp4 -i caption/video.srt -codec copy -map 0 -map 1 caption/video.softsub.mkv
@@ -98,6 +98,6 @@ Music and many other art forms began to flourish between 1600 and
 
 &lt;p&gt;This file contains some header data that lets you control the styles. You can then merge the ASS 🍑 into your video using the same &lt;code&gt;ffmpeg&lt;/code&gt; command as before.&lt;/p&gt;
 &lt;p&gt;That said, the ASS format and others like it seem much more complicated to work with than SRT; at that point you may be better off just using a graphical subtitle editor.&lt;/p&gt;
-&lt;h2 id="conclusion"&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;The subtitled version of my test video, following the procedures above, can be found &lt;a href="https://www.youtube.com/watch?v=89Jy7EZQrzs"&gt;here&lt;/a&gt;. You can learn a thing or two about my favorite musical genre. 😉🎶&lt;/p&gt;
+&lt;h3 id="conclusion"&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;The captioned version of my test video, following the procedures above, can be found &lt;a href="https://www.youtube.com/watch?v=89Jy7EZQrzs"&gt;here&lt;/a&gt;. You can learn a thing or two about my favorite musical genre. 😉🎶&lt;/p&gt;
 &lt;p&gt;Anyway, I found this whole exercise to be pretty eye-opening, and it shows how easy it is to put high-quality captions on your videos without breaking the bank. I hope this explainer has been useful to you!&lt;/p&gt;</content><category term="Machine Learning"></category><category term="AI"></category><category term="Machine Learning"></category><category term="Python"></category><category term="video"></category></entry></feed>
