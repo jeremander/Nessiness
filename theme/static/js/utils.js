@@ -1,4 +1,9 @@
-function flashMessage(eltTag, duration = 4000) {
+function setFlashMessageContent(eltId, message) {
+  $(`#${eltId} .flash-alert-content`).html(message);
+}
+
+function flashMessage(eltId, duration = 4000) {
+  let eltTag = '#' + eltId;
   $(eltTag).fadeIn('fast', () => {
     $(eltTag).delay(duration).fadeOut('slow');
   });
@@ -10,8 +15,8 @@ function flashMessages() {
   if (messages) {
     let d = JSON.parse(messages);
     for (const [eltId, message] of Object.entries(d)) {
-      $(`#${eltId} .flash-alert-content`).html(message);
-      flashMessage(`#${eltId}`);
+      setFlashMessageContent(eltId, message);
+      flashMessage(eltId);
     }
     localStorage.removeItem('flashMessages');
   }

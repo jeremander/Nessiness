@@ -36,6 +36,7 @@ TEMPLATE_PAGES = {
     'login.html': 'login.html',
     'pages/projects.html': 'pages/projects.html',
     'profile.html': 'profile.html',
+    'reset_password.html': 'reset_password.html'
 }
 
 TIMEZONE = 'America/New_York'

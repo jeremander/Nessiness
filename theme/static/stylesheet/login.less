@@ -63,7 +63,7 @@
     border: 0 !important;
 }
 
-#login-box, #signup-box {
+#login-box, #signup-box, #password-reset-box {
     display: flex;
     height: 100%;
     text-align: center;
@@ -93,7 +93,7 @@
             box-shadow: 0 0 0 0 !important;
         }
 
-        #login-form, #signup-form {
+        form {
             > div {
                 margin-bottom: 1em;
             }
@@ -113,7 +113,7 @@
             .login-btn {
                 color: white;
                 background-color: @dark-purple;
-                width: 100px;
+                min-width: 100px;
 
                 &:hover{
                     background-color: @medium-purple;
@@ -156,4 +156,9 @@
         margin: 0.5em auto;
         width: 350px;
     }
+}
+
+.error-msg {
+    font-size: 10pt;
+    color: red;
 }

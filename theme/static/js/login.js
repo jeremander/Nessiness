@@ -25,6 +25,7 @@ function refreshLoginDisplay() {
 function clearInvalid(form) {
   $(form).find('input').removeClass('is-invalid');
   $(form).find('.invalid-feedback').remove();
+  $(form).find('.error-msg').html('');
 }
 
 function clearForm(form) {
@@ -128,7 +129,7 @@ $('#signup-form').submit((elt) => {
     if (obj.status == 400) {  // network error
       alert('Network error');
     }
-    else if (obj.status == 409) {  // conflict (user/e-mail already exists)
+    else if (obj.status == 409) {  // conflict (user/email already exists)
       let err = obj.data.detail;
       let tokens = err.split(' ');
       let i = (tokens[2] == 'username') ? 0 : 1;
@@ -136,15 +137,15 @@ $('#signup-form').submit((elt) => {
       $(inputs[i]).addClass('is-invalid');
       $(inputs[i]).parent().append(`<div class="invalid-feedback">${token} already exists.</div>`);
     }
-    else if (obj.status == 422) {  // invalid e-mail address
+    else if (obj.status == 422) {  // invalid email address
       $(inputs[1]).addClass('is-invalid');
       $(inputs[1]).parent().append('<div class="invalid-feedback">Invalid email address.</div>');
     }
     else if (obj.status == 200) {  // signup successful
       let email = inputs[1].value;
       $('#signup-modal').modal('hide');
-      $('#signup-success .flash-alert-content').html(`Account created successfully!<br><br>Sent email to <b>${email}</b>`);
-      flashMessage('#signup-success');
+      setFlashMessageContent('signup-success', `Account created successfully!<br><br>Sent email to <b>${email}</b>`);
+      flashMessage('signup-success');
       loginToggle();
     }
     else {
@@ -156,3 +157,50 @@ $('#signup-form').submit((elt) => {
 $('#signup-toggle').click(signupToggle);
 
 $('#login-toggle').click(loginToggle);
+
+$('#password-reset-modal').on('hidden.bs.modal', () => {
+  clearForm($('#password-reset-request-form'));
+});
+
+$('#password-reset-request-form').submit((elt) => {
+  elt.preventDefault();
+  $('#password-reset-modal').modal('hide');
+  let email = $(elt.target).find('input[type="email"]')[0].value;
+  let url = getAuthUrl(`/users/change-password-request?email=${email}`);
+  fetchWithTimeout(url).then((response) => {
+    if (response.status == 200) {
+      setFlashMessageContent('password-reset-requested', 'If account exists, a password reset email was sent to the address provided.');
+      flashMessage('password-reset-requested', 5000);
+    }
+    else {
+      alert('Unknown error occurred.')
+    }
+  }, () => {
+    alert('Network error');
+  });
+});
+
+$('#password-reset-form').submit((elt) => {
+  elt.preventDefault();
+  clearInvalid(elt.target);
+  // check that password reset token is valid before loading the page
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  let inputs = $(elt.target).find('input');
+  if (urlParams.has('email') && urlParams.has('token')) {
+    const url = getAuthUrl('/users/change-password-submit' + queryString);
+    let body = JSON.stringify({username: inputs[0].value, email: urlParams.get('email'), password: inputs[1].value});
+    fetchWithTimeout(url, {method: 'POST', headers: {'Content-Type': 'application/json'}, body}).then((response) => {
+      if (response.status == 200) {
+        $(elt.target).find('.error-msg').html('');
+        addFlashMessage('password-reset-success', 'Successfully changed password.')
+        redirectToRoute('/login', false);
+      }
+      else {
+        response.json().then((data) => {
+          $(elt.target).find('.error-msg').html(data.detail);
+        });
+      }
+    });
+  }
+});

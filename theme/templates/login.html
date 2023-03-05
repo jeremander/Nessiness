@@ -95,7 +95,7 @@
   <div class="modal fade" id="password-reset-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <form id="password-reset-form">
+        <form id="password-reset-request-form">
           <div class="modal-header">
             <h5 class="modal-title">Forgot Username or Password</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -114,12 +114,14 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" id="password-reset-btn" class="btn btn-primary">Send Link</button>
+            <button type="submit" id="password-reset-request-btn" class="btn btn-primary">Send Link</button>
           </div>
         </form>
       </div>
     </div>
   </div>
+
+  {{ macros.flash_alert("password-reset-requested", "alert-success") }}
 
 </article>
 
