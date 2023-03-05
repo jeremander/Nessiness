@@ -1,7 +1,30 @@
-function flashAlert(eltTag, duration = 4000) {
+function flashMessage(eltTag, duration = 4000) {
   $(eltTag).fadeIn('fast', () => {
     $(eltTag).delay(duration).fadeOut('slow');
   });
+}
+
+function flashMessages() {
+  // flash messages
+  let messages = localStorage.getItem('flashMessages');
+  if (messages) {
+    let d = JSON.parse(messages);
+    for (const [eltId, message] of Object.entries(d)) {
+      $(`#${eltId} .flash-alert-content`).html(message);
+      flashMessage(`#${eltId}`);
+    }
+    localStorage.removeItem('flashMessages');
+  }
+}
+
+function addFlashMessage(eltId, message) {
+  let messages = localStorage.getItem('flashMessages');
+  let d = {}
+  if (messages) {
+    let d = JSON.parse(messages);
+  }
+  d[eltId] = message;
+  localStorage.setItem('flashMessages', JSON.stringify(d));
 }
 
 // redirects to a route of the application; if redirect = true, addes a redirect query parameter with the current URL

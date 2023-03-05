@@ -1,7 +1,7 @@
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function dateToStr(date) {
-  let monthName = monthNames[date.getMonth()];
+  let monthName = monthNames[date.getMonth() - 1];
   let day = date.getDate();
   let year = date.getFullYear();
   return `${monthName} ${day}, ${year}`;
@@ -73,7 +73,7 @@ function loadProfile() {
   });
 }
 
-$('#profile-table tbody').on('change', 'input[type=radio][name=remember-me]', function() {
+$('#profile-table tbody').on('change', 'input[type=radio][name=remember-me]', () => {
   // refresh the access token when user toggles 'remember me'
   let rememberMe = (this.value == 'yes');
   refreshAccessToken(rememberMe);
@@ -81,7 +81,18 @@ $('#profile-table tbody').on('change', 'input[type=radio][name=remember-me]', fu
 
 $('#delete-account-btn').click((elt) => {
   let username = getCurrentUser();
-  $('#delete-account-modal').modal('hide');
-  localStorage.setItem('deletedUser', username);
-  redirectToRoute('/', false);
+  deleteUser().then((response) => {
+    if (response.status == 200) {
+      setLocalLoginState(null);
+      let message = `Successfully deleted account for <b>${username}</b>.`;
+      addFlashMessage('delete-account-success', message)
+      redirectToRoute('/', false);
+    }
+    else {
+      let message = `Error deleting account for <b>${username}</b>.`;
+      addFlashMessage('delete-account-failure', message);
+      flashMessages();
+    }
+    $('#delete-account-modal').modal('hide');
+  });
 });

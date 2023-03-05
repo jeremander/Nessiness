@@ -305,7 +305,8 @@
     {% block content %}
     {% endblock %}
 
-    {{ macros.flash_alert("delete-account-success", "", "alert-danger") }}
+    {{ macros.flash_alert("delete-account-success", "alert-danger") }}
+    {{ macros.flash_alert("delete-account-failure", "alert-danger") }}
 
     <footer>
       {% if CC_LICENSE %}

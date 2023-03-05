@@ -63,12 +63,15 @@ $('#login-form').submit((elt) => {
   const rememberMe = $(elt.target).find('#remember-me').prop('checked');
   let formData = new FormData(elt.target);
   const loginUrl = getAuthUrl('/login?remember_me=' + rememberMe.toString());
-  fetch(loginUrl, {method: 'POST', body: formData}).catch((err) => {
+  fetchWithTimeout(loginUrl, {method: 'POST', body: formData, timeout: 5000}).catch((err) => {
     return new Response(JSON.stringify({detail: 'Network error'}), {status: 400});
   }).then(loginStateFromResponse).then((loginState) => {
     // store the login state
     setLocalLoginState(loginState);
-    if (loginState.status == 400) {  // server error
+    if (!loginState) {
+      alert('Network error');
+    }
+    else if (loginState.status == 400) {  // server error
       alert(loginState.data.detail);
     }
     else if (loginState.status == 401) {  // authentication error
@@ -95,7 +98,7 @@ $('#login-form').submit((elt) => {
 $('.logout-link').click((elt) => {
   elt.preventDefault();
   const logoutUrl = getAuthUrl('/logout');
-  fetch(logoutUrl, {method: 'POST'}).then((response) => {
+  fetchWithTimeout(logoutUrl, {method: 'POST', timeout: 3000}).then((response) => {
     return loginStateFromResponse(response, false);
   }).then((loginState) => {
     setLocalLoginState(loginState);
@@ -119,8 +122,13 @@ $('#signup-form').submit((elt) => {
     return response.json().then((data) => {
       return {status: response.status, data}
     });
+  }).catch((err) => {
+    return new Response(JSON.stringify({detail: 'Network error'}), {status: 400});
   }).then((obj) => {
-    if (obj.status == 409) {  // conflict (user/e-mail already exists)
+    if (obj.status == 400) {  // network error
+      alert('Network error');
+    }
+    else if (obj.status == 409) {  // conflict (user/e-mail already exists)
       let err = obj.data.detail;
       let tokens = err.split(' ');
       let i = (tokens[2] == 'username') ? 0 : 1;

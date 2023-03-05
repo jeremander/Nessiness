@@ -200,3 +200,10 @@ async function requiresLogin(func) {
     redirectToLogin();
   }
 }
+
+// deltes the currently logged in user
+async function deleteUser() {
+  let url = getAuthUrl('/users/delete-me');
+  const response = await fetchWithTimeout(url, {method: 'DELETE', timeout: 3000}).catch((err) => {});
+  return response;
+}
