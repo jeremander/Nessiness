@@ -144,7 +144,7 @@ $('#signup-form').submit((elt) => {
       let email = inputs[1].value;
       $('#signup-modal').modal('hide');
       $('#signup-success .flash-alert-content').html(`Account created successfully!<br><br>Sent email to <b>${email}</b>`);
-      flashAlert('#signup-success');
+      flashMessage('#signup-success');
       loginToggle();
     }
     else {

@@ -1,7 +1,7 @@
 - Login features
-    - Change e-mail address
     - Change password
         - e-mail confirmation
+    - Change e-mail address
 - Nessiness Twitter account
 - Profile
     - notice about cookies via tooltip

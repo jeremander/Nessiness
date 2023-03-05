@@ -55,6 +55,14 @@
 
 }
 
+.input-group-prepend span {
+    display: inline-block;
+    width: 50px;
+    background-color: @medium-gold;
+    color: @dark-grey;
+    border: 0 !important;
+}
+
 #login-box, #signup-box {
     display: flex;
     height: 100%;
@@ -83,14 +91,6 @@
         input:focus{
             outline: 0 0 0 0 !important;
             box-shadow: 0 0 0 0 !important;
-        }
-
-        .input-group-prepend span {
-            display: inline-block;
-            width: 50px;
-            background-color: @medium-gold;
-            color: @dark-grey;
-            border: 0 !important;
         }
 
         #login-form, #signup-form {
@@ -148,5 +148,12 @@
                 margin-left: 4px;
             }
         }
+    }
+}
+
+#password-reset-modal {
+    .input-group {
+        margin: 0.5em auto;
+        width: 350px;
     }
 }

@@ -6,6 +6,7 @@
 {% block content %}
 <article class="single login">
 
+  <!-- Login -->
   <div id="login-box">
     <div class="card">
       <div class="card-header">
@@ -40,12 +41,13 @@
           <br>
         </div>
         <div class="d-flex justify-content-center">
-          <a onclick="alert('Sucks to be you! 😜');" href="javascript:void(0);">Forgot your password?</a>
+          <a href="#password-reset-modal" data-toggle="modal" data-target="#password-reset-modal">Forgot username or password?</a>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Signup -->
   <div id="signup-box">
     <div class="card">
       <div class="card-header">
@@ -87,7 +89,37 @@
     </div>
   </div>
 
-  {{ macros.flash_alert("signup-success", "", "alert-success") }}
+  {{ macros.flash_alert("signup-success", "alert-success") }}
+
+  <!-- Forgot password -->
+  <div class="modal fade" id="password-reset-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form id="password-reset-form">
+          <div class="modal-header">
+            <h5 class="modal-title">Forgot Username or Password</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <p>Please enter your e-mail below. If an account exists, we will send an e-mail with your username and a link to reset your password.</p>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+              </div>
+              <input type="email" class="form-control" name="email" placeholder="email" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" id="password-reset-btn" class="btn btn-primary">Send Link</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 </article>
 
