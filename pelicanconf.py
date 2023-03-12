@@ -76,7 +76,6 @@ SOCIAL = [
 #     ('Tags', '/tags.html'),
 # )
 
-# LOGIN_NAV = True
 LOGIN_NAV = DEV
 
 COPYRIGHT_YEAR = datetime.now().year

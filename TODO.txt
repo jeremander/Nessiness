@@ -1,6 +1,4 @@
 - Login features
-    - Change password
-        - e-mail confirmation
     - Change e-mail address
 - Nessiness Twitter account
 - Profile

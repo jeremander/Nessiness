@@ -4,6 +4,14 @@
 {% block title %} &ndash; Login {% endblock %}
 
 {% block content %}
+
+{% if not DEV %}
+<!-- for now, disable login feature -->
+<script>
+  window.location.href = "{{SITEURL}}";
+</script>
+{% endif %}
+
 <article class="single login">
 
   <!-- Login -->
