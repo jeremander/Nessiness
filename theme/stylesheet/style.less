@@ -1,4 +1,6 @@
 @import "variables.less";
+@import "login.less";
+@import "profile.less";
 
 html, body {
   width: 100%;
@@ -47,14 +49,13 @@ body {
   background-color: @body-bg;
   color: @text-color;
   font-family: @sans;
-  // font-size: 1.02em;
   font-size: 13pt;
   line-height: 1.2em;
 }
 
 a {
   color: @link-color;
-  text-decoration: none;
+  text-decoration: none !important;
 
   &.active-link {
     color: @sidebar-active-link-color;
@@ -127,6 +128,10 @@ aside {
     padding: 15px 20px;
     margin: 0;
 
+    @media @phone-down {
+        padding: 15px 15px;
+    }
+
     img.sitelogo {
       border-radius: 50%;
       max-height: 110px;
@@ -179,28 +184,28 @@ aside {
 
 main {
 
-  nav {
-    text-align: center;
-    text-transform: uppercase;
-    padding: 14px 0 14px 0;
-    border-bottom: @nav-border-color 1px solid;
+//   nav {
+//     text-align: center;
+//     text-transform: uppercase;
+//     padding: 14px 0 14px 0;
+//     border-bottom: @nav-border-color 1px solid;
 
-    // Need to use font-size of 0 so that whitespace between the <a> tags
-    // doesn't have an affect on alignment.
-    font-size: 0;
-  }
+//     // Need to use font-size of 0 so that whitespace between the <a> tags
+//     // doesn't have an affect on alignment.
+//     font-size: 0;
+//   }
 
-  nav, .translations {
-    a {
-      font-size: 12px;
-      padding: 0 4px;
-      border-right: @nav-border-color 1px solid;
-    }
+//   nav, .translations {
+//     a {
+//       font-size: 12px;
+//       padding: 0 4px;
+//       border-right: @nav-border-color 1px solid;
+//     }
 
-    :last-child {
-      border-right: none;
-    }
-  }
+//     :last-child {
+//       border-right: none;
+//     }
+//   }
 
   .neighbors {
     margin: 4% 0% 4% 0%;
@@ -464,7 +469,7 @@ ul.list, ul.social, ul.related-posts {
 }
 
 ul.list {
-  padding: 1em 0 1em 0;
+  padding: 0.5em 0;
 
   li {
     padding: 4px;
@@ -633,7 +638,7 @@ ul.social {
       }
 
       ul.social {
-        padding-top: 32px;
+        padding: 0.75em 0em;
       }
     }
   }
@@ -873,6 +878,8 @@ article.projects {
 }
 
 article.single {
+    padding-top: 1em;
+
     h4 {
         font-size: 1.25em;
         margin: 1em 0em 0.5em 0em;
@@ -901,5 +908,41 @@ article.single {
 
   @media @small-phone-down {
     height: 150px;
+  }
+}
+
+.modal-dialog {
+
+  .modal-header {
+
+    .modal-title {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .close {
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em;
+    }
+  }
+
+  .modal-body {
+    text-align: left;
+  }
+}
+
+.flash-alert {
+  position: absolute;
+  left: 23%;
+  width: 54%;
+  margin: auto;
+  text-align: center;
+  bottom: 15%;
+
+  @media @tablet-down {
+      left: 4%;
+      width: 92%;
+      bottom: 4%;
   }
 }

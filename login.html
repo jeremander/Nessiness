@@ -54,9 +54,7 @@
 <meta property="og:url" content="https://nessiness.com"/>
 <meta property="og:image" content="https://nessiness.com/images/logo.png">
 
-
-
-  <title>Nessiness &ndash; About</title>
+  <title>Nessiness &ndash; Login </title>
 
 </head>
 <body class="light-theme">
@@ -135,18 +133,145 @@
   <main>
 
 
-<article class="single">
-  <header>
-    
-    <h1 class="page-header" id="about">About</h1>
-  </header>
-  <div>
-<p><img class="profile-pic" alt="Profile" src="https://nessiness.com/images/profile.jpg" align="left"></img></p>
-<p>Hi, I'm Jeremy. I'm a mathematician and freelance software developer. In my spare time I like to work on various recreational software projects, including some mini web apps that can be found here on Nessiness.</p>
-<p>Languages: Python, Haskell, Rust, Swift, C/C++, HTML/CSS, and more.</p>
-<p>Other interests of mine include singing, playing piano &amp; guitar, reading, philosophizing, studying Japanese, doing yoga, and speed-solving the Rubik's cube.</p>
-<p>Nessiness is a place for my random musings on all kinds of topics, from AI to music theory to metaphysics. Feel free to contact me if you have any suggestions or are interested in working together!</p>  </div>
+
+<!-- for now, disable login feature -->
+<script>
+  window.location.href = "https://nessiness.com";
+</script>
+
+<article class="single login">
+
+  <!-- Login -->
+  <div id="login-box">
+    <div class="card">
+      <div class="card-header">
+        <h3>Log In</h3>
+      </div>
+      <div class="card-body">
+        <form id="login-form">
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" name="username" placeholder="username or email" required>
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <input type="password" class="form-control" name="password" placeholder="password" required>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="remember-me">
+            <label class="form-check-label" for="remember-me">Remember me</label>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Login" class="btn login-btn">
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <div class="d-flex justify-content-center links">
+          Don't have an account? &nbsp; <a id="signup-toggle" href="#signup-box">Sign Up</a>
+          <br>
+        </div>
+        <div class="d-flex justify-content-center">
+          <a href="#password-reset-modal" data-toggle="modal" data-target="#password-reset-modal">Forgot username or password?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signup -->
+  <div id="signup-box">
+    <div class="card">
+      <div class="card-header">
+        <h3>Sign Up</h3>
+      </div>
+      <div class="card-body">
+        <form id="signup-form">
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" name="username" placeholder="username" minlength="4"
+              maxlength="32" required>
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            </div>
+            <input type="email" class="form-control" name="email" placeholder="email" required>
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <input type="password" class="form-control" name="password" placeholder="password" minlength="8"
+              maxlength="32" required>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Sign Up" class="btn login-btn">
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <div class="d-flex justify-content-center links">
+          Already have an account? &nbsp; <a id="login-toggle" href="#login-box">Log In</a>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div id="signup-success" class="alert flash-alert alert-dismissible alert-success" style="display: none" role="alert">
+      <span class="flash-alert-content"></span>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+
+  <!-- Forgot password -->
+  <div class="modal fade" id="password-reset-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form id="password-reset-request-form">
+          <div class="modal-header">
+            <h5 class="modal-title">Forgot Username or Password</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <p>Please enter your e-mail below. If an account exists, we will send an e-mail with your username and a link to reset your password.</p>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+              </div>
+              <input type="email" class="form-control" name="email" placeholder="email" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" id="password-reset-request-btn" class="btn btn-primary">Send Link</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+      <div id="password-reset-requested" class="alert flash-alert alert-dismissible alert-success" style="display: none" role="alert">
+      <span class="flash-alert-content"></span>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+
 </article>
+
 
     <!-- flash messages -->
         <div id="delete-account-success" class="alert flash-alert alert-dismissible alert-danger" style="display: none" role="alert">

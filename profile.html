@@ -54,9 +54,7 @@
 <meta property="og:url" content="https://nessiness.com"/>
 <meta property="og:image" content="https://nessiness.com/images/logo.png">
 
-
-
-  <title>Nessiness &ndash; About</title>
+  <title>Nessiness &ndash; Profile </title>
 
 </head>
 <body class="light-theme">
@@ -135,18 +133,46 @@
   <main>
 
 
-<article class="single">
+
+<article class="single profile">
+
   <header>
-    
-    <h1 class="page-header" id="about">About</h1>
+    <h2 class="page-header">Profile</h2>
   </header>
-  <div>
-<p><img class="profile-pic" alt="Profile" src="https://nessiness.com/images/profile.jpg" align="left"></img></p>
-<p>Hi, I'm Jeremy. I'm a mathematician and freelance software developer. In my spare time I like to work on various recreational software projects, including some mini web apps that can be found here on Nessiness.</p>
-<p>Languages: Python, Haskell, Rust, Swift, C/C++, HTML/CSS, and more.</p>
-<p>Other interests of mine include singing, playing piano &amp; guitar, reading, philosophizing, studying Japanese, doing yoga, and speed-solving the Rubik's cube.</p>
-<p>Nessiness is a place for my random musings on all kinds of topics, from AI to music theory to metaphysics. Feel free to contact me if you have any suggestions or are interested in working together!</p>  </div>
+
+  <div id="profile-box">
+    <div class="card">
+      <div class="card-body">
+        <table id="profile-table">
+          <tbody>
+          </tbody>
+        </table>
+        <div id="profile-actions">
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-account-modal">Delete Account</button>
+          <div class="modal fade" id="delete-account-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Delete Account</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div id="delete-account-msg" class="modal-body"></div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" id="delete-account-btn" class="btn btn-danger">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </article>
+
 
     <!-- flash messages -->
         <div id="delete-account-success" class="alert flash-alert alert-dismissible alert-danger" style="display: none" role="alert">
@@ -207,6 +233,11 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
   <script src="https://nessiness.com/theme/js/login.js"></script>
   <script src="https://nessiness.com/theme/js/profile.js"></script>
   <script src="https://nessiness.com/theme/js/main.js"></script>
+
+
+<script>
+  $(document).ready(loadProfile);
+</script>
 
 
 </body>

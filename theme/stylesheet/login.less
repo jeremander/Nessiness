@@ -1,0 +1,164 @@
+@import "variables.less";
+
+.login-nav {
+    display: block;
+    margin-top: 1.75em;
+    font-size: 10pt;
+
+    div {
+        margin: 0.3em 0em;
+        padding: 0;
+        color: @light-grey;
+    }
+
+    .login-logout > a {
+        color: @sidebar-active-link-color;
+
+        &:hover {
+            color: @sidebar-link-hover-color;
+        }
+        .fa-user {
+            margin-right: 0.5em;
+        }
+
+        .login-link, .logout-link {
+            display: none;
+        }
+    }
+
+    .user-greeting {
+        margin: 0.75em;
+
+        .username {
+            color: @sidebar-active-link-color;
+
+            &:hover {
+                color: @sidebar-link-hover-color;
+            }
+        }
+    }
+
+    @media @tablet-down {
+        position: absolute;
+        text-align: right;
+        max-width: 36%;
+        margin: 0;
+        top: 15px;
+        right: 20px;
+    }
+
+    @media @phone-down {
+        font-size: 9pt;
+        top: 8px;
+        right: 10px;
+    }
+
+}
+
+.input-group-prepend span {
+    display: inline-block;
+    width: 50px;
+    background-color: @medium-gold;
+    color: @dark-grey;
+    border: 0 !important;
+}
+
+#login-box, #signup-box, #password-reset-box {
+    display: flex;
+    height: 100%;
+    text-align: center;
+
+    .card {
+        margin: auto;
+        width: 350px;
+        // max-width: 350px;
+        // align-content: center;
+        box-shadow: 1px 1px 3px @neutral-grey;
+
+        .card-header, .card-footer {
+            background-color: @login-header-color !important;
+        }
+
+        h3 {
+            color: @dark-purple;
+            margin: 0;
+        }
+
+        .card-body {
+            background-color: @login-body-color !important;
+        }
+
+        input:focus{
+            outline: 0 0 0 0 !important;
+            box-shadow: 0 0 0 0 !important;
+        }
+
+        form {
+            > div {
+                margin-bottom: 1em;
+            }
+
+            .form-check-input {
+                scale: 1.3;
+            }
+
+            .form-check-label {
+                padding-left: 0.25em;
+            }
+
+            > div:last-child {
+                margin-bottom: 0;
+            }
+
+            .login-btn {
+                color: white;
+                background-color: @dark-purple;
+                min-width: 100px;
+
+                &:hover{
+                    background-color: @medium-purple;
+                }
+            }
+        }
+    }
+}
+
+#login-box {
+    .card-footer {
+        padding: 0;
+
+        div {
+            margin: 0.7em 0em;
+
+            &:first-child {
+                margin-bottom: 0.25em;
+            }
+
+            &:last-child {
+                margin-top: 0.25em;
+            }
+        }
+
+        a:link, a:visited {
+            text-decoration: none;
+        }
+
+        .links {
+            a {
+                margin-left: 4px;
+            }
+        }
+    }
+}
+
+#password-reset-modal {
+    .input-group {
+        margin: 0.5em auto;
+        width: 350px;
+    }
+}
+
+.error-msg {
+    font-size: 10pt;
+    color: red;
+}
