@@ -296,9 +296,11 @@ greet.py: error: the following arguments are required: name
 <p>We see that dataclass fields with a default value are optional, while those without a default are required.</p>
 <h3 id="other-features">Other Features</h3>
 <p>In addition to the examples above, <code>fancy_dataclass</code> can do much more, including:</p>
-<p><em>Configuration management</em>: store global configurations and use them anywhere in your program
-<em>SQL persistence</em>: define SQL tables, and save/load objects from a database
-<em>Subprocess calls</em>: generate command-line arguments to be passed to another program</p>
+<ul>
+<li><em>Configuration management</em>: store global configurations and use them anywhere in your program.</li>
+<li><em>SQL persistence</em>: define SQL tables, and save/load objects from a database.</li>
+<li><em>Subprocess calls</em>: generate command-line arguments to be passed to another program.</li>
+</ul>
 <p>You are free to combine the features together so that the same dataclass can be used for multiple purposes (e.g. both SQL and JSON representation).</p>
 <p>There is also a system for adjusting class-specific or field-specific settings (e.g. for JSON serialization, whether to suppress <code>None</code> values or default values); see the documentation for details.</p>
 <h3 id="what-about-pydantic">What about <code>pydantic</code>?</h3>

@@ -137,9 +137,11 @@ greet.py: error: the following arguments are required: name
 &lt;p&gt;We see that dataclass fields with a default value are optional, while those without a default are required.&lt;/p&gt;
 &lt;h3 id="other-features"&gt;Other Features&lt;/h3&gt;
 &lt;p&gt;In addition to the examples above, &lt;code&gt;fancy_dataclass&lt;/code&gt; can do much more, including:&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Configuration management&lt;/em&gt;: store global configurations and use them anywhere in your program
-&lt;em&gt;SQL persistence&lt;/em&gt;: define SQL tables, and save/load objects from a database
-&lt;em&gt;Subprocess calls&lt;/em&gt;: generate command-line arguments to be passed to another program&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Configuration management&lt;/em&gt;: store global configurations and use them anywhere in your program.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;SQL persistence&lt;/em&gt;: define SQL tables, and save/load objects from a database.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Subprocess calls&lt;/em&gt;: generate command-line arguments to be passed to another program.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;You are free to combine the features together so that the same dataclass can be used for multiple purposes (e.g. both SQL and JSON representation).&lt;/p&gt;
 &lt;p&gt;There is also a system for adjusting class-specific or field-specific settings (e.g. for JSON serialization, whether to suppress &lt;code&gt;None&lt;/code&gt; values or default values); see the documentation for details.&lt;/p&gt;
 &lt;h3 id="what-about-pydantic"&gt;What about &lt;code&gt;pydantic&lt;/code&gt;?&lt;/h3&gt;
