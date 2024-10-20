@@ -169,9 +169,9 @@ We see that dataclass fields with a default value are optional, while those with
 
 In addition to the examples above, `fancy_dataclass` can do much more, including:
 
-*Configuration management*: store global configurations and use them anywhere in your program
-*SQL persistence*: define SQL tables, and save/load objects from a database
-*Subprocess calls*: generate command-line arguments to be passed to another program
+- *Configuration management*: store global configurations and use them anywhere in your program.
+- *SQL persistence*: define SQL tables, and save/load objects from a database.
+- *Subprocess calls*: generate command-line arguments to be passed to another program.
 
 You are free to combine the features together so that the same dataclass can be used for multiple purposes (e.g. both SQL and JSON representation).
 
