@@ -61,13 +61,15 @@ PAGES_SORT_ATTRIBUTE = 'category'
 FILENAME_METADATA = '(?P<date>\d{4}\d{2}\d{2})_(?P<slug>.*)'
 
 # Social widget
-SOCIAL = [
-    # ('twitter', 'https://twitter.com/Morosoph1729'),
-    ('mastodon', 'https://mathstodon.xyz/@jeremander'),
-    ('github', 'https://github.com/jeremander'),
-    ('rss', f'{SITEURL}/{FEED_ATOM}'),
-    ('envelope', 'mailto:jeremys@nessiness.com?subject=Nessiness'),
-]
+SOCIAL_DICT = {
+    'twitter': 'https://x.com/NessinessDotCom',
+    'mastodon': 'https://mathstodon.xyz/@jeremander',
+    'github': 'https://github.com/jeremander',
+    'rss': f'{SITEURL}/{FEED_ATOM}',
+    'envelope': 'mailto:jeremys@nessiness.com?subject=Nessiness',
+}
+
+SOCIAL = list(SOCIAL_DICT.items())
 
 # MAIN_MENU = True
 # MENUITEMS = (

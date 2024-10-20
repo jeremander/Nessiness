@@ -23,7 +23,8 @@ FEED_DOMAIN = SITEURL
 LINKS = [('Home', SITEURL), ('Projects', f'{SITEURL}/pages/projects.html')]
 
 # Social
-SOCIAL[2] = ('rss', f'{SITEURL}/{FEED_ATOM}')
+SOCIAL_DICT['rss'] = f'{SITEURL}/{FEED_ATOM}'
+SOCIAL = list(SOCIAL_DICT.items())
 
 DELETE_OUTPUT_DIRECTORY = True
 
