@@ -3,7 +3,7 @@ Category: Python
 Tags: Python
 Summary: Introducing `fancy_dataclass`, a versatile Python library built around dataclasses.
 
-I've written a Python library called `fancy_dataclass`, a versatile Python library built around dataclasses. Python 3.7 introduced the [`dataclasses`](https://docs.python.org/3/library/dataclasses.html) module, which lets you write "statically typed" classes using the type hinting mechanism.
+I've written a Python library called `fancy_dataclass`, a versatile library built around dataclasses. Python 3.7 introduced the [`dataclasses`](https://docs.python.org/3/library/dataclasses.html) module, which lets you write "statically typed" classes using the type hinting mechanism.
 
 The goal of this library is to enable *type-driven development*, which leverages the type system to eliminate a lot of boilerplate code. The idea is that you write a dataclass and then imbue with with "special powers." One common use case is to enable automatic conversion of Python objects to and from JSON. Another is to define a bundle of parameters and then expose them to a command-line argument parser. `fancy_dataclass` makes it possible to do these things with very few lines of code.
 
