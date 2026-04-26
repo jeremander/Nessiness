@@ -62,8 +62,10 @@ FILENAME_METADATA = '(?P<date>\d{4}\d{2}\d{2})_(?P<slug>.*)'
 
 # Social widget
 SOCIAL_DICT = {
-    'twitter': 'https://x.com/NessinessDotCom',
-    'mastodon': 'https://mathstodon.xyz/@jeremander',
+    # 'twitter': 'https://x.com/NessinessDotCom',
+    'bluesky': 'https://bsky.app/profile/nessiness.com',
+    # 'mastodon': 'https://mathstodon.xyz/@jeremander',
+    # 'mastodon': 'https://mathstodon.xyz/@jeremander',
     'github': 'https://github.com/jeremander',
     'rss': f'{SITEURL}/{FEED_ATOM}',
     'envelope': 'mailto:jeremys@nessiness.com?subject=Nessiness',
