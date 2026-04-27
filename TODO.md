@@ -1,0 +1,10 @@
+- `standard.site` plugin
+  - Add `icon` blob (expand `lexiform`?)
+- Script to update PDS with local records.
+  - Use `lexiform`?
+- Remove existing auth stuff in favor of ATProto?
+- Login features
+  - Change e-mail address
+- Profile
+  - notice about cookies via tooltip
+    - tried & failed with Bootstrap (try CSS-only?)
