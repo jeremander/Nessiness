@@ -1,5 +1,6 @@
-- Bluesky link instead of Twitter
 - `standard.site` plugin
+- Script to update PDS with local records.
+    - Use `lexiform`?
 - Remove existing auth stuff in favor of ATProto?
 - Login features
     - Change e-mail address

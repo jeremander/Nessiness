@@ -1,0 +1,35 @@
+{
+  "fancy_dataclass.html": {
+    "path": "/fancy_dataclass",
+    "site": "https://nessiness.com",
+    "tags": [
+      "Python"
+    ],
+    "title": "New Python Library: fancy_dataclass",
+    "description": "Introducing fancy_dataclass, a versatile Python library built around dataclasses.",
+    "publishedAt": "2024-10-20T04:00:00+00:Z"
+  },
+  "captioning_with_ai.html": {
+    "path": "/captioning_with_ai",
+    "site": "https://nessiness.com",
+    "tags": [
+      "AI",
+      "Machine Learning",
+      "Python",
+      "video"
+    ],
+    "title": "Adding Captions to Video with AI",
+    "description": "Using OpenAI Whisper and ffmpeg to add captions to your videos.",
+    "publishedAt": "2023-03-01T05:00:00+00:Z"
+  },
+  "welcome.html": {
+    "path": "/welcome",
+    "site": "https://nessiness.com",
+    "tags": [
+      "nessiness"
+    ],
+    "title": "Welcome",
+    "description": "The pale filtered light of Nessiness shines again on this paltry world. —M.B.W.",
+    "publishedAt": "2021-02-06T05:00:00+00:Z"
+  }
+}

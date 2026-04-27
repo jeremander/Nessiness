@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*- #
 
 from datetime import datetime
 import os
+
 
 DEV = (os.environ.get('DEV') == '1')
 
@@ -10,6 +10,7 @@ AUTHOR = 'Jeremy Silver'
 SITENAME = 'Nessiness'
 SITETITLE = 'Nessiness'
 
+# development site URL
 SITEURL = 'http://localhost:8080'
 
 if DEV:
@@ -26,7 +27,6 @@ FAVICON_DIR = f'{IMG_DIR}/favicons'
 ROBOTS = "index, follow"
 
 THEME = 'theme'
-# THEME = "/Users/jerm/Programming/Web/pelican-themes/Flex"
 PATH = 'content'
 
 # inside of content directory
@@ -116,3 +116,13 @@ MARKDOWN = {
     },
     'output_format': 'html5',
 }
+
+# ATProto
+
+PLUGIN_PATHS = ['atproto/pelican/plugins']
+PLUGINS = ['atproto']
+
+# local path to JSON registry
+ATPROTO_REGISTRY_PATH = 'atproto/document_registry.json'
+# site URL for blog website
+ATPROTO_SITEURL = 'https://nessiness.com'
