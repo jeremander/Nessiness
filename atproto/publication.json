@@ -1,8 +1,16 @@
 {
+  "$type": "site.standard.publication",
   "url": "https://nessiness.com",
   "name": "Nessiness",
-  "$type": "site.standard.publication",
-  "description": "n. Random stuff or things.",
+  "description": "<i>n.</i> Random stuff or things.",
+  "icon": {
+    "$type": "blob",
+    "ref": {
+      "$link": "bafkreihz7waeikz25u6iphat4f4bsfgeaez4dxsw7ovczqn5se276bsvum"
+    },
+    "mimeType": "image/png",
+    "size": 46855
+  },
   "preferences": {
     "$type": "site.standard.publication#preferences",
     "locale": "en-US",
