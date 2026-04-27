@@ -30,7 +30,7 @@ THEME = 'theme'
 PATH = 'content'
 
 # inside of content directory
-STATIC_PATHS = ['docs', 'images']
+STATIC_PATHS = ['docs', 'extra', 'images']
 
 TEMPLATE_PAGES = {
     'login.html': 'login.html',
@@ -126,3 +126,7 @@ PLUGINS = ['atproto']
 ATPROTO_REGISTRY_PATH = 'atproto/document_registry.json'
 # site URL for blog website
 ATPROTO_SITEURL = 'https://nessiness.com'
+
+EXTRA_PATH_METADATA = {
+    'extra/site.standard.publication': {'path': '.well-known/site.standard.publication'},
+}
