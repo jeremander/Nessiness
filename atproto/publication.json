@@ -1,0 +1,12 @@
+{
+  "url": "https://nessiness.com",
+  "name": "Nessiness",
+  "$type": "site.standard.publication",
+  "description": "n. Random stuff or things.",
+  "preferences": {
+    "$type": "site.standard.publication#preferences",
+    "locale": "en-US",
+    "timezone": "America/New_York",
+    "showInDiscover": true
+  }
+}
