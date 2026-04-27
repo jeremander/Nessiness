@@ -18,6 +18,10 @@ if DEV:
 else:
     AUTH_URL = 'https://nessiness-auth.fly.dev'
 
+# include year/month to avoid possible article URL collisions
+ARTICLE_URL = '{date:%Y}/{date:%m}/{slug}/'
+ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{slug}/index.html'
+
 IMG_DIR = f'{SITEURL}/images'
 SITELOGO = f'{IMG_DIR}/logo.png'
 FAVICON_DIR = f'{IMG_DIR}/favicons'
@@ -40,7 +44,6 @@ TEMPLATE_PAGES = {
 }
 
 TIMEZONE = 'America/New_York'
-
 DEFAULT_LANG = 'en'
 
 # Feeds
@@ -126,6 +129,10 @@ PLUGINS = ['atproto']
 ATPROTO_REGISTRY_PATH = 'atproto/document_registry.json'
 # site URL for blog website
 ATPROTO_SITEURL = 'https://nessiness.com'
+# DID for ATProto account
+ATPROTO_DID = 'did:plc:jypsryjwkklic3bgem5gticy'
+# prefix to use for every document rkey
+ATPROTO_PUB_PREFIX = 'nessiness'
 
 EXTRA_PATH_METADATA = {
     'extra/site.standard.publication': {'path': '.well-known/site.standard.publication'},
