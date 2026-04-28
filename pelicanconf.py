@@ -135,5 +135,6 @@ ATPROTO_DID = 'did:plc:jypsryjwkklic3bgem5gticy'
 ATPROTO_PUB_PREFIX = 'nessiness'
 
 EXTRA_PATH_METADATA = {
+    'extra/.nojekyll': {'path': '.nojekyll'},
     'extra/site.standard.publication': {'path': '.well-known/site.standard.publication'},
 }
