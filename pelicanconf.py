@@ -127,8 +127,8 @@ PLUGINS = ['atproto']
 
 # local path to JSON registry
 ATPROTO_REGISTRY_PATH = 'atproto/document_registry.json'
-# site URL for blog website
-ATPROTO_SITEURL = 'https://nessiness.com'
+# publication URL (site.standard.publication document for the blog)
+ATPROTO_PUBLICATION_URL = 'at://did:plc:jypsryjwkklic3bgem5gticy/site.standard.publication/3mkjamtpllj2a'
 # DID for ATProto account
 ATPROTO_DID = 'did:plc:jypsryjwkklic3bgem5gticy'
 # prefix to use for every document rkey

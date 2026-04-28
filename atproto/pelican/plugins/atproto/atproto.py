@@ -75,11 +75,11 @@ def get_rkey_for_article(article: Article, pub_prefix: Optional[str] = None) -> 
     return ':'.join(rkey_segments)
 
 def article_to_standard_site_record(settings: dict[str, Any], article: Article) -> dict[str, Any]:
-    site_url = get_var(settings, 'ATPROTO_SITEURL')
+    pub_url = get_var(settings, 'ATPROTO_PUBLICATION_URL')
     date_str = date_to_string(article.date)
     record = {
-        'path': '/' + article.slug,
-        'site': site_url,
+        'path': '/' + article.url,
+        'site': pub_url,
         'tags': [tag.name for tag in article.tags],
         'title': strip_tags(article.title),
         # TODO: content: optional inline content, e.g. with https://markpub.at

@@ -1,7 +1,7 @@
 {
   "nessiness:20241020:fancy_dataclass": {
-    "path": "/fancy_dataclass",
-    "site": "https://nessiness.com",
+    "path": "/2024/10/fancy_dataclass/",
+    "site": "at://did:plc:jypsryjwkklic3bgem5gticy/site.standard.publication/3mkjamtpllj2a",
     "tags": [
       "Python"
     ],
@@ -10,8 +10,8 @@
     "publishedAt": "2024-10-20T04:00:00Z"
   },
   "nessiness:20230301:captioning_with_ai": {
-    "path": "/captioning_with_ai",
-    "site": "https://nessiness.com",
+    "path": "/2023/03/captioning_with_ai/",
+    "site": "at://did:plc:jypsryjwkklic3bgem5gticy/site.standard.publication/3mkjamtpllj2a",
     "tags": [
       "AI",
       "Machine Learning",
@@ -23,8 +23,8 @@
     "publishedAt": "2023-03-01T05:00:00Z"
   },
   "nessiness:20210206:welcome": {
-    "path": "/welcome",
-    "site": "https://nessiness.com",
+    "path": "/2021/02/welcome/",
+    "site": "at://did:plc:jypsryjwkklic3bgem5gticy/site.standard.publication/3mkjamtpllj2a",
     "tags": [
       "nessiness"
     ],
