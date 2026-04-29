@@ -1,5 +1,4 @@
 import datetime
-import os
 from pathlib import Path
 import shlex
 import shutil
@@ -18,39 +17,48 @@ SETTINGS.update(DEFAULT_CONFIG)
 LOCAL_SETTINGS = get_settings_from_file(SETTINGS_FILE_BASE)
 SETTINGS.update(LOCAL_SETTINGS)
 
+DEPLOY_PATH = SETTINGS['OUTPUT_PATH']
+
 CONFIG = {
     'settings_base': SETTINGS_FILE_BASE,
     'settings_publish': 'publishconf.py',
+    'site_name': 'nessiness.com',
     # Output path. Can be absolute or relative to tasks.py. Default: 'output'
-    'deploy_path': SETTINGS['OUTPUT_PATH'],
+    'deploy_path': DEPLOY_PATH,
     # Github Pages configuration
-    'github_pages_branch': 'main',
+    'github_pages_branch': 'gh-pages',
     'commit_message': f"'Publish site on {datetime.date.today().isoformat()}'",
     # Host and port for `serve`
     'host': 'localhost',
     'port': 8000,
 }
 
+def log(msg):
+    print(msg, file=sys.stderr)
+
+
 @task
 def clean(c):
     """Remove generated files"""
     deploy_path = Path(CONFIG['deploy_path'])
     if deploy_path.is_dir():
-        print(f'Cleaning {deploy_path.resolve()}')
+        log(f'Cleaning {deploy_path.resolve()}')
         shutil.rmtree(deploy_path)
         deploy_path.mkdir()
     else:
-        print(f'ERROR: {deploy_path} is not a directory')
+        log(f'ERROR: {deploy_path} is not a directory')
 
 @task
 def build(c):
     """Build local version of site"""
     pelican_run('-s {settings_base}'.format(**CONFIG))
+    log(f'Built site to {DEPLOY_PATH}')
 
 @task
 def rebuild(c):
     """`build` with the delete switch"""
     pelican_run('-d -s {settings_base}'.format(**CONFIG))
+    log(f'Built site to {DEPLOY_PATH}')
 
 @task
 def regenerate(c):
@@ -69,7 +77,7 @@ def serve(c):
         (CONFIG['host'], CONFIG['port']),
         ComplexHTTPRequestHandler)
 
-    sys.stderr.write('Serving at {host}:{port} ...\n'.format(**CONFIG))
+    log('Serving at {host}:{port} ...'.format(**CONFIG))
     server.serve_forever()
 
 @task
@@ -82,6 +90,7 @@ def reserve(c):
 def preview(c):
     """Build production version of site"""
     pelican_run('-s {settings_publish}'.format(**CONFIG))
+    log(f'Built site with production settings to {DEPLOY_PATH}')
 
 @task
 def livereload(c):
@@ -123,9 +132,10 @@ def livereload(c):
 def gh_pages(c):
     """Publish to GitHub Pages"""
     preview(c)
-    c.run('ghp-import -b {github_pages_branch} '
+    c.run('ghp-import -c {site_name} -b {github_pages_branch} '
           '-m {commit_message} '
           '{deploy_path} -p'.format(**CONFIG))
+    log(f"Pushed to {CONFIG['github_pages_branch']}")
 
 @task
 def atproto_sync(c):
