@@ -38,6 +38,8 @@ def get_atproto_registry() -> dict[str, Any]:
 
 def sync_articles(*, prompt: bool = True, dry_run: bool = False) -> None:
     """Uploads new articles to ATProto PDS."""
+    if dry_run:
+        log('Doing dry run (will not actually update any records)')
     load_dotenv()  # load password
     password = get_var(os.environ, 'ATPROTO_APP_PASSWORD')
     registry = get_atproto_registry()
@@ -51,21 +53,24 @@ def sync_articles(*, prompt: bool = True, dry_run: bool = False) -> None:
     pub_prefix = get_var(SETTINGS, 'ATPROTO_PUB_PREFIX')
     # only include rkeys tied to the site's publication
     pds_rkeys = {rkey for rkey in pds_rkeys if rkey.startswith(f'{pub_prefix}:')}
-    log(f'{num_articles} article(s) for {pub_prefix} in PDS')
+    log(f'{len(pds_rkeys)} article(s) for {pub_prefix} in PDS')
     # NOTE: we check for new articles and deleted articles, but we don't check if any article metadata has *changed*.
     # Records do not store the content, so an article may change and its record will still point to the updated page.
     # It's possible we might want to update other metadata like the description or cover image, but we do not support
     # that for now.
     new_records = [(rkey, record) for (rkey, record) in registry.items() if (rkey not in pds_rkeys)]
     new_records.sort(key=lambda pair: pair[1]['publishedAt'])
-    num_in_pds = len(registry) - len(new_records)
-    log(f'{num_in_pds} of {num_articles} published articles are in PDS')
+    # log(f'{num_in_pds} of {num_articles} published articles are in PDS')
     missing_rkeys = {rkey for rkey in pds_rkeys if (rkey not in registry)}
-    if (not new_records) and (not missing_rkeys):
+    num_to_create = len(new_records)
+    num_to_delete = len(missing_rkeys)
+    if max(num_to_create, num_to_delete) == 0:
         log('No articles to upload or delete.')
         return
+    log(f'records to create: {num_to_create}')
+    log(f'records to delete: {num_to_delete}')
     if prompt:
-        upload = input('Update article records in PDS? [Y/N] ').lower().startswith('y')
+        upload = input('Update article records in PDS? [y/n] ').lower().startswith('y')
     else:
         upload = True
     if upload:
@@ -81,6 +86,8 @@ def sync_articles(*, prompt: bool = True, dry_run: bool = False) -> None:
             if not dry_run:
                 client.delete_record(DOCUMENT_NSID, rkey)
         log('PDS sync successful.')
+    else:
+        log('Aborting PDS sync.')
 
 
 if __name__ == '__main__':

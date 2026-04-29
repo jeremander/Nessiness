@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from pathlib import Path
 import shlex
 import shutil
@@ -19,6 +19,8 @@ SETTINGS.update(LOCAL_SETTINGS)
 
 DEPLOY_PATH = SETTINGS['OUTPUT_PATH']
 
+CUR_TIMESTAMP = datetime.now().isoformat()[:19]
+
 CONFIG = {
     'settings_base': SETTINGS_FILE_BASE,
     'settings_publish': 'publishconf.py',
@@ -27,7 +29,7 @@ CONFIG = {
     'deploy_path': DEPLOY_PATH,
     # Github Pages configuration
     'github_pages_branch': 'gh-pages',
-    'commit_message': f"'Publish site on {datetime.date.today().isoformat()}'",
+    'commit_message': f"'Publish site on {CUR_TIMESTAMP}'",
     # Host and port for `serve`
     'host': 'localhost',
     'port': 8000,
