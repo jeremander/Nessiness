@@ -10,6 +10,8 @@ classifiers = [
   "Programming Language :: Python"
 ]
 dependencies = [
+    "dotenv",  # loading secrets in .env file
+    "invoke",  # for tasks.py
     "Markdown >= 3.3.6",
     "markdown-link-attr-modifier >= 0.2.0",
     "pelican",

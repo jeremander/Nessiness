@@ -16,3 +16,4 @@ output/
 notes/
 nohup.out
 login/
+.env

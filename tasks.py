@@ -1,17 +1,15 @@
-# -*- coding: utf-8 -*-
-
+import datetime
 import os
 import shlex
 import shutil
 import sys
-import datetime
 
 from invoke import task
 from invoke.main import program
-from invoke.util import cd
 from pelican import main as pelican_main
 from pelican.server import ComplexHTTPRequestHandler, RootedHTTPServer
 from pelican.settings import DEFAULT_CONFIG, get_settings_from_file
+
 
 SETTINGS_FILE_BASE = 'pelicanconf.py'
 SETTINGS = {}
@@ -26,7 +24,7 @@ CONFIG = {
     'deploy_path': SETTINGS['OUTPUT_PATH'],
     # Github Pages configuration
     'github_pages_branch': 'main',
-    'commit_message': "'Publish site on {}'".format(datetime.date.today().isoformat()),
+    'commit_message': f"'Publish site on {datetime.date.today().isoformat()}'",
     # Host and port for `serve`
     'host': 'localhost',
     'port': 8000,
@@ -122,6 +120,12 @@ def gh_pages(c):
     c.run('ghp-import -b {github_pages_branch} '
           '-m {commit_message} '
           '{deploy_path} -p'.format(**CONFIG))
+
+@task
+def atproto_sync(c):
+    """Upload new articles to ATProto PDS."""
+    from atproto.sync_articles import sync_articles
+    sync_articles()
 
 def pelican_run(cmd):
     cmd += ' ' + program.core.remainder  # allows to pass-through args to pelican
