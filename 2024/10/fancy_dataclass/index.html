@@ -140,6 +140,18 @@
   </aside>
   <main>
 
+    <nav>
+      <a href="https://nessiness.com">Home</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <!--       <a href="https://nessiness.com/feed/all.atom.xml">Atom</a>
+ -->
+
+      <!--  -->
+    </nav>
 
 <article class="single">
   <header>
@@ -162,11 +174,11 @@
 <p>🪲 Submit bug reports or feature requests on <a href="https://github.com/jeremander/fancy-dataclass">Github</a>.</p>
 <h3 id="example-1-json-serialization">Example 1: JSON Serialization</h3>
 <p>Let's define a dataclass that can be converted to and from JSON.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">fancy_dataclass</span> <span class="kn">import</span> <span class="n">JSONDataclass</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fancy_dataclass</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONDataclass</span>
 
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">JSONDataclass</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">(</span><span class="n">JSONDataclass</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">age</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">height</span><span class="p">:</span> <span class="nb">float</span>
@@ -213,12 +225,12 @@
 <p><code>fancy_dataclass</code> supports serialization of <a href="https://toml.io/en/">TOML</a> as well as JSON, which is useful for configuration management.</p>
 <h3 id="example-2-cli-argument-parsing">Example 2: CLI Argument Parsing</h3>
 <p>Let's use <code>fancy_dataclass</code> to write a simple command-line program, <code>greet.py</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 
-<span class="kn">from</span> <span class="nn">fancy_dataclass</span> <span class="kn">import</span> <span class="n">CLIDataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fancy_dataclass</span><span class="w"> </span><span class="kn">import</span> <span class="n">CLIDataclass</span>
 
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Greet</span><span class="p">(</span><span class="n">CLIDataclass</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Greet</span><span class="p">(</span><span class="n">CLIDataclass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A program to greet the user.&quot;&quot;&quot;</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
         <span class="n">metadata</span><span class="o">=</span><span class="p">{</span>
@@ -239,7 +251,7 @@
         <span class="p">}</span>
     <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># implement your main program logic</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fancy</span><span class="p">:</span>
             <span class="n">greeting</span> <span class="o">=</span> <span class="s1">&#39;Greetings and salutations&#39;</span>
