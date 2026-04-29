@@ -1,11 +1,11 @@
 - `standard.site` plugin
-  - Add `icon` blob (expand `lexiform`?)
-  - Have plugin only run when not in development?
   - Script to update PDS with local records.
     - Use `lexiform`?
+    - Upload all records in registry whose rkeys are not already there.
+    - Only run this on a proper "publish" action (`make github`)?
 - Remove existing auth stuff in favor of ATProto?
-- Login features
-  - Change e-mail address
-- Profile
-  - notice about cookies via tooltip
-    - tried & failed with Bootstrap (try CSS-only?)
+  - (Old) Login features
+    - Change e-mail address
+  - Profile
+    - notice about cookies via tooltip
+      - tried & failed with Bootstrap (try CSS-only?)

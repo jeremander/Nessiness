@@ -11,7 +11,7 @@ SITENAME = 'Nessiness'
 SITETITLE = 'Nessiness'
 
 # development site URL
-SITEURL = 'http://localhost:8080'
+SITEURL = 'http://localhost:8000'
 
 if DEV:
     AUTH_URL = 'http://localhost:8000'
@@ -76,12 +76,12 @@ SOCIAL_DICT = {
 
 SOCIAL = list(SOCIAL_DICT.items())
 
-# MAIN_MENU = True
-# MENUITEMS = (
-#     ('Archives', '/archives.html'),
-#     ('Categories', '/categories.html'),
-#     ('Tags', '/tags.html'),
-# )
+MAIN_MENU = True
+MENUITEMS = (
+    ('Archives', '/archives.html'),
+    ('Categories', '/categories.html'),
+    ('Tags', '/tags.html'),
+)
 
 LOGIN_NAV = DEV
 

@@ -68,6 +68,7 @@ a {
 
 .section-header {
     margin-top: 2rem;
+    font-size: 1.8em;
     a {
         color: @section-header-color;
         &:hover {
@@ -87,8 +88,6 @@ hr {
   background-color: @light-grey;
   height: 1px;
   border: none;
-  margin-top: 40px;
-  margin-bottom: 40px;
 }
 
 img {
@@ -184,28 +183,29 @@ aside {
 
 main {
 
-//   nav {
-//     text-align: center;
-//     text-transform: uppercase;
-//     padding: 14px 0 14px 0;
-//     border-bottom: @nav-border-color 1px solid;
+  nav {
+    text-align: center;
+    text-transform: uppercase;
+    padding: 14px 0 14px 0;
+    border-bottom: @nav-border-color 1px solid;
 
-//     // Need to use font-size of 0 so that whitespace between the <a> tags
-//     // doesn't have an affect on alignment.
-//     font-size: 0;
-//   }
+    // Need to use font-size of 0 so that whitespace between the <a> tags
+    // doesn't have an affect on alignment.
+    font-size: 0;
+  }
 
-//   nav, .translations {
-//     a {
-//       font-size: 12px;
-//       padding: 0 4px;
-//       border-right: @nav-border-color 1px solid;
-//     }
+  nav, .translations {
+    a {
+      // font-size: 12px;
+      font-size: 14px;
+      padding: 0 6px;
+      border-right: @nav-border-color 1px solid;
+    }
 
-//     :last-child {
-//       border-right: none;
-//     }
-//   }
+    :last-child {
+      border-right: none;
+    }
+  }
 
   .neighbors {
     margin: 4% 0% 4% 0%;
@@ -249,6 +249,11 @@ main {
           font-weight: 600;
         }
       }
+    }
+
+    hr {
+      margin-top: 40px;
+      margin-bottom: 0px;
     }
 
     code, kbd, samp, pre {
@@ -895,6 +900,10 @@ article.projects {
 
 article.single {
     padding-top: 1em;
+
+    h1 {
+      padding-bottom: 0.5em;
+    }
 
     h4 {
         font-size: 1.25em;
