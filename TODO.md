@@ -1,8 +1,6 @@
 - `standard.site` plugin
-  - Script to update PDS with local records.
-    - Use `lexiform`?
-    - Upload all records in registry whose rkeys are not already there.
-    - Only run this on a proper "publish" action (`make github`)?
+  - Update action to make a Bsky post when uploading a new article.
+  - After GH publish, perform the *check* for unpublished articles, give an alert. Separate action to sync.
 - Remove existing auth stuff in favor of ATProto?
   - (Old) Login features
     - Change e-mail address

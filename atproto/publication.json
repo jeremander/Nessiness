@@ -2,7 +2,7 @@
   "$type": "site.standard.publication",
   "url": "https://nessiness.com",
   "name": "Nessiness",
-  "description": "<i>n.</i> Random stuff or things.",
+  "description": "n. Random stuff or things.",
   "icon": {
     "$type": "blob",
     "ref": {

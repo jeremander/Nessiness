@@ -67,7 +67,7 @@ def sync_articles(*, prompt: bool = True) -> None:
         client.authenticate(password=password)
         for (rkey, record) in new_records:
             log(f'\t{rkey}')
-            # client.create_record('site.standard.document', record, rkey)
+            client.create_record('site.standard.document', record, rkey)
         log('Upload successful.')
 
 
