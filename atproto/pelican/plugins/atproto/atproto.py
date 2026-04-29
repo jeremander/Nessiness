@@ -97,20 +97,24 @@ def update_atproto_registry(generator: ArticlesGenerator, writer: Writer) -> Non
     settings = generator.settings
     pub_prefix = settings.get('ATPROTO_PUB_PREFIX')
     registry = get_atproto_registry(settings)
-    published_articles = [article for article in generator.articles if (article.status == 'published')]
-    # TODO: post the unregistered articles only
-    unregistered_articles = [
-        article for article in published_articles if (get_rkey_for_article(article, pub_prefix) not in registry)
-    ]
-    LOGGER.info(f'{len(unregistered_articles)} article(s) are unregistered')
-    registry = {}
-    for article in published_articles:
-        rkey = get_rkey_for_article(article, pub_prefix)
-        if rkey in registry:
-            raise ValueError(f'duplicate document rkey {rkey!r} in ATProto registry')
+    published_articles = {}
+    for article in generator.articles:
+        if article.status == 'published':
+            rkey = get_rkey_for_article(article, pub_prefix)
+            if rkey in published_articles:
+                raise ValueError(f'duplicate document rkey {rkey!r}')
+            published_articles[rkey] = article
+    num_unregistered_articles = len([rkey for (rkey, _) in published_articles.items() if (rkey not in registry)])
+    LOGGER.info(f'{num_unregistered_articles} published article(s) are unregistered')
+    missing_articles = [rkey for rkey in registry if (rkey not in published_articles)]
+    if missing_articles:
+        LOGGER.warning(f'{len(missing_articles)} registered article(s) are missing')
+        for rkey in missing_articles:
+            LOGGER.warning(f'\t{rkey}')
+    for (rkey, article) in published_articles.items():
         registry[rkey] = article_to_standard_site_record(settings, article)
     _ATPROTO_REGISTRY = registry
-    LOGGER.info(f'Updated registry with {len(registry)} article(s)')
+    LOGGER.info(f'Updated registry has {len(registry)} article(s)')
     path = get_atproto_registry_path(settings)
     with open(path, 'w') as f:
         json.dump(registry, f, indent=2, ensure_ascii=False)
@@ -134,7 +138,6 @@ def insert_standard_site_document_link(path: str, context: dict[str, Any]) -> No
     p.write_text(content)
 
 # TODO: post to Bluesky embedding link to post
-# TODO: upload standard.site record pointing to the post
 
 def register() -> None:
     """Registers signals from Pelican."""

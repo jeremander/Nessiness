@@ -137,11 +137,14 @@ def gh_pages(c):
           '{deploy_path} -p'.format(**CONFIG))
     log(f"Pushed to {CONFIG['github_pages_branch']}")
 
-@task
-def atproto_sync(c):
+@task(help={
+    'force': 'suppress user confirmation',
+    'dry_run': 'do not update records, just show what would happen',
+})
+def atproto_sync(c, force=False, dry_run=False):
     """Upload new articles to ATProto PDS."""
     from atproto.sync_articles import sync_articles
-    sync_articles()
+    sync_articles(prompt=not force, dry_run=dry_run)
 
 def pelican_run(cmd):
     cmd += ' ' + program.core.remainder  # allows to pass-through args to pelican
