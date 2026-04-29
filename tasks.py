@@ -1,5 +1,6 @@
 import datetime
 import os
+from pathlib import Path
 import shlex
 import shutil
 import sys
@@ -33,9 +34,13 @@ CONFIG = {
 @task
 def clean(c):
     """Remove generated files"""
-    if os.path.isdir(CONFIG['deploy_path']):
-        shutil.rmtree(CONFIG['deploy_path'])
-        os.makedirs(CONFIG['deploy_path'])
+    deploy_path = Path(CONFIG['deploy_path'])
+    if deploy_path.is_dir():
+        print(f'Cleaning {deploy_path.resolve()}')
+        shutil.rmtree(deploy_path)
+        deploy_path.mkdir()
+    else:
+        print(f'ERROR: {deploy_path} is not a directory')
 
 @task
 def build(c):
@@ -102,16 +107,16 @@ def livereload(c):
     server.serve(host=CONFIG['host'], port=CONFIG['port'], root=CONFIG['deploy_path'])
 
 
-@task
-def publish(c):
-    """Publish to production via rsync"""
-    pelican_run('-s {settings_publish}'.format(**CONFIG))
-    c.run(
-        'rsync --delete --exclude ".DS_Store" -pthrvz -c '
-        '-e "ssh -p {ssh_port}" '
-        '{} {ssh_user}@{ssh_host}:{ssh_path}'.format(
-            CONFIG['deploy_path'].rstrip('/') + '/',
-            **CONFIG))
+# @task
+# def publish(c):
+#     """Publish to production via rsync"""
+#     pelican_run('-s {settings_publish}'.format(**CONFIG))
+#     c.run(
+#         'rsync --delete --exclude ".DS_Store" -pthrvz -c '
+#         '-e "ssh -p {ssh_port}" '
+#         '{} {ssh_user}@{ssh_host}:{ssh_path}'.format(
+#             CONFIG['deploy_path'].rstrip('/') + '/',
+#             **CONFIG))
 
 @task
 def gh_pages(c):
