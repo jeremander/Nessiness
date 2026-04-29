@@ -1,5 +1,6 @@
 - `standard.site` plugin
-  - Update action to make a Bsky post when uploading a new article.
+  - Update `atproto-sync` to make a Bsky post when uploading a new article.
+    - Prompt user for this behavior. Update local registry getting strong ref to post.
   - After GH publish, perform the *check* for unpublished articles, give an alert. Separate action to sync.
 - Remove existing auth stuff in favor of ATProto?
   - (Old) Login features

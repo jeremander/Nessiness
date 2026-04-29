@@ -107,19 +107,26 @@ def update_atproto_registry(generator: ArticlesGenerator, writer: Writer) -> Non
     num_unregistered_articles = len([rkey for (rkey, _) in published_articles.items() if (rkey not in registry)])
     LOGGER.info(f'{num_unregistered_articles} published article(s) are unregistered')
     deleted_articles = [rkey for rkey in registry if (rkey not in published_articles)]
+    num_deleted_articles = len(deleted_articles)
     if deleted_articles:
-        LOGGER.warning(f'{len(deleted_articles)} registered article(s) have been deleted')
+        LOGGER.warning(f'{num_deleted_articles} registered article(s) have been deleted')
         for rkey in deleted_articles:
             LOGGER.warning(f'\t{rkey}')
             del registry[rkey]
+    changes_exist = max(num_unregistered_articles, num_deleted_articles) > 0
+    if changes_exist:
+        LOGGER.info('To sync local registry with PDS, use `atproto-sync` action')
+    else:
+        LOGGER.info('No changes to registry')
     for (rkey, article) in published_articles.items():
         registry[rkey] = article_to_standard_site_record(settings, article)
     _ATPROTO_REGISTRY = registry
-    LOGGER.info(f'Updated registry has {len(registry)} article(s)')
-    path = get_atproto_registry_path(settings)
-    with open(path, 'w') as f:
-        json.dump(registry, f, indent=2, ensure_ascii=False)
-    LOGGER.info(f'Wrote registry to {path}')
+    if changes_exist:
+        LOGGER.info(f'Updated registry has {len(registry)} article(s)')
+        path = get_atproto_registry_path(settings)
+        with open(path, 'w') as f:
+            json.dump(registry, f, indent=2, ensure_ascii=False)
+        LOGGER.info(f'Wrote registry to {path}')
 
 def insert_standard_site_document_link(path: str, context: dict[str, Any]) -> None:
     """Injects a <link> element into the HTML head, pointing to the article's site.standard.document."""
