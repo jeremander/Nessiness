@@ -106,11 +106,12 @@ def update_atproto_registry(generator: ArticlesGenerator, writer: Writer) -> Non
             published_articles[rkey] = article
     num_unregistered_articles = len([rkey for (rkey, _) in published_articles.items() if (rkey not in registry)])
     LOGGER.info(f'{num_unregistered_articles} published article(s) are unregistered')
-    missing_articles = [rkey for rkey in registry if (rkey not in published_articles)]
-    if missing_articles:
-        LOGGER.warning(f'{len(missing_articles)} registered article(s) are missing')
-        for rkey in missing_articles:
+    deleted_articles = [rkey for rkey in registry if (rkey not in published_articles)]
+    if deleted_articles:
+        LOGGER.warning(f'{len(deleted_articles)} registered article(s) have been deleted')
+        for rkey in deleted_articles:
             LOGGER.warning(f'\t{rkey}')
+            del registry[rkey]
     for (rkey, article) in published_articles.items():
         registry[rkey] = article_to_standard_site_record(settings, article)
     _ATPROTO_REGISTRY = registry

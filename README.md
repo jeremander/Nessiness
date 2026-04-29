@@ -33,8 +33,8 @@ Docs for [Pelican](https://docs.getpelican.com/en/latest/index.html) and [plugin
 ### Deleting a Post
 
 1. Delete the post.
-1. Build & publish the site.
 1. Delete metadata for the post in the local registry.
+1. Build & publish the site.
 1. Delete `site.standard.document` record from the PDS.
 1. Optionally, delete the Bluesky post manually.
 
