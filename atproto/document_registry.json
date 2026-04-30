@@ -1,4 +1,15 @@
 {
+  "nessiness:20260430:atmospheric_test": {
+    "path": "/2026/04/atmospheric_test/",
+    "site": "at://did:plc:jypsryjwkklic3bgem5gticy/site.standard.publication/3mkjamtpllj2a",
+    "tags": [
+      "Test",
+      "ATproto"
+    ],
+    "title": "Atmospheric Test",
+    "description": "This is a test.",
+    "publishedAt": "2026-04-30T04:00:00Z"
+  },
   "nessiness:20241020:fancy_dataclass": {
     "path": "/2024/10/fancy_dataclass/",
     "site": "at://did:plc:jypsryjwkklic3bgem5gticy/site.standard.publication/3mkjamtpllj2a",
@@ -7,7 +18,8 @@
     ],
     "title": "New Python Library: fancy_dataclass",
     "description": "Introducing fancy_dataclass, a versatile Python library built around dataclasses.",
-    "publishedAt": "2024-10-20T04:00:00Z"
+    "publishedAt": "2024-10-20T04:00:00Z",
+    "bskyPostRef": null
   },
   "nessiness:20230301:captioning_with_ai": {
     "path": "/2023/03/captioning_with_ai/",

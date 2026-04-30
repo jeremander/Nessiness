@@ -118,14 +118,19 @@ def update_atproto_registry(generator: ArticlesGenerator, writer: Writer) -> Non
         LOGGER.info('To sync local registry with PDS, use `atproto-sync` action')
     else:
         LOGGER.info('No changes to registry')
-    for (rkey, article) in published_articles.items():
-        registry[rkey] = article_to_standard_site_record(settings, article)
-    _ATPROTO_REGISTRY = registry
+    new_registry = {}
+    for rkey in sorted(published_articles, reverse=True):
+        article = published_articles[rkey]
+        new_registry[rkey] = article_to_standard_site_record(settings, article)
+        if (rkey in registry) and ('bskyPostRef' in registry[rkey]):
+            # preserve the bskyPostRef, if it exists
+            new_registry[rkey]['bskyPostRef'] = registry[rkey]['bskyPostRef']
+    _ATPROTO_REGISTRY = new_registry
     if changes_exist:
-        LOGGER.info(f'Updated registry has {len(registry)} article(s)')
+        LOGGER.info(f'Updated registry has {len(new_registry)} article(s)')
         path = get_atproto_registry_path(settings)
         with open(path, 'w') as f:
-            json.dump(registry, f, indent=2, ensure_ascii=False)
+            json.dump(new_registry, f, indent=2, ensure_ascii=False)
         LOGGER.info(f'Wrote registry to {path}')
 
 def insert_standard_site_document_link(path: str, context: dict[str, Any]) -> None:
