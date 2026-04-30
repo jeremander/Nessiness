@@ -20,7 +20,8 @@
     ],
     "title": "Adding Captions to Video with AI",
     "description": "Using OpenAI Whisper and ffmpeg to add captions to your videos.",
-    "publishedAt": "2023-03-01T05:00:00Z"
+    "publishedAt": "2023-03-01T05:00:00Z",
+    "bskyPostRef": null
   },
   "nessiness:20210206:welcome": {
     "path": "/2021/02/welcome/",
@@ -30,6 +31,7 @@
     ],
     "title": "Welcome",
     "description": "The pale filtered light of Nessiness shines again on this paltry world. —M.B.W.",
-    "publishedAt": "2021-02-06T05:00:00Z"
+    "publishedAt": "2021-02-06T05:00:00Z",
+    "bskyPostRef": null
   }
 }

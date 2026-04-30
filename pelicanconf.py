@@ -12,6 +12,8 @@ SITETITLE = 'Nessiness'
 
 # development site URL
 SITEURL = 'http://localhost:8000'
+# production site URL
+PROD_URL = 'https://nessiness.com'
 
 if DEV:
     AUTH_URL = 'http://localhost:8000'
