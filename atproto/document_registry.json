@@ -8,7 +8,11 @@
     ],
     "title": "Atmospheric Test",
     "description": "This is a test.",
-    "publishedAt": "2026-04-30T04:00:00Z"
+    "publishedAt": "2026-04-30T04:00:00Z",
+    "bskyPostRef": {
+      "uri": "at://did:plc:jypsryjwkklic3bgem5gticy/app.bsky.feed.post/3mkqooyu4fx2t",
+      "cid": "bafyreig463x5zxenk4dfjdxi5l7ykqzxzrt2s6mdojufokj245mapgjdxq"
+    }
   },
   "nessiness:20241020:fancy_dataclass": {
     "path": "/2024/10/fancy_dataclass/",

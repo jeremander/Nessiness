@@ -84,6 +84,7 @@ def build_facets(text: str) -> list[dict[str, Any]]:
 def document_record_to_bsky_post(record: dict[str, Any]) -> dict[str, Any]:
     url = get_var(SETTINGS, 'PROD_URL') + record['path']
     description = record['description']
+    tags = record['tags']
     embed = {
         '$type': BSKY_EMBED_NSID,
         'external': {
@@ -92,37 +93,42 @@ def document_record_to_bsky_post(record: dict[str, Any]) -> dict[str, Any]:
             'description': description,
         }
     }
+    hashtags = ' '.join(f'#{tag}' for tag in tags)
+    text = hashtags
+    facets = build_facets(text)
     return {
-        'tags': record['tags'],
-        'text': description,  # TODO: include the tags as hashtag facets?
+        'tags': tags,
+        'text': hashtags,  # TODO: include the tags as hashtag facets?
         'embed': embed,
         'langs': ['en'],
-        # 'facets': None,
+        'facets': facets,
         'createdAt': date_to_string(datetime.datetime.now()),
     }
 
 def update_bsky_posts(registry: dict[str, Any], *, prompt: bool = True, dry_run: bool = False) -> None:
     has_changed = False
-    for (rkey, record) in registry.items():
-        if BSKY_REF_KEY in record:
-            continue
-        do_post = (not prompt) or prompt_yes_no(f'\tPost to Bluesky for {rkey}?')
-        if not do_post:
-            continue
-        post = document_record_to_bsky_post(record)
-        if dry_run:
-            log(json.dumps(post, indent=2, ensure_ascii=True))
+    try:
+        for (rkey, record) in registry.items():
+            if BSKY_REF_KEY in record:
+                continue
+            do_post = (not prompt) or prompt_yes_no(f'\tPost to Bluesky for {rkey}?')
+            if not do_post:
+                continue
+            post = document_record_to_bsky_post(record)
+            if dry_run:
+                log(json.dumps(post, indent=2, ensure_ascii=True))
+            else:
+                client = get_client()
+                authenticate_client(client)
+                response = client.create_record(BSKY_POST_NSID, post)
+                has_changed = True
+                post_ref = {'uri': response.uri, 'cid': response.cid}
+                record['bskyPostRef'] = post_ref
+    finally:
+        if has_changed:
+            save_atproto_registry(registry)
         else:
-            client = get_client()
-            authenticate_client(client)
-            response = client.create_record(BSKY_POST_NSID, post)
-            post_ref = {'uri': response['uri'], 'cid': response['cid']}
-            record['bskyPostRef'] = post_ref
-            has_changed = True
-    if has_changed:
-        save_atproto_registry(registry)
-    else:
-        log('No changes to registry')
+            log('No changes to registry')
 
 def sync_articles(*, prompt: bool = True, dry_run: bool = False) -> None:
     """Uploads new articles to ATProto PDS."""
