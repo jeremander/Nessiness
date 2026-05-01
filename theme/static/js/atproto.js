@@ -56,7 +56,7 @@ function parseAtUri(atUri) {
     // inject a link to the Bluesky post
     const p = document.createElement("p");
     p.className = "bsky-link";
-    p.innerHTML = `<i class="fa-brands fa-bluesky"></i>Comment on <a href="${bskyPostUrl}" target="_blank" rel="noopener">Bluesky</a>`;
+    p.innerHTML = `<a href="${bskyPostUrl}" target="_blank" rel="noopener"><i class="fa-brands fa-bluesky"></i></a>Comment on <a href="${bskyPostUrl}" target="_blank" rel="noopener">Bluesky</a>`;
     article.appendChild(p);
 
   } catch {

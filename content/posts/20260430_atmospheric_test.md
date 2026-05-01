@@ -1,4 +1,5 @@
 Title: Atmospheric Test
+Category: ATproto
 Tags: Test, ATproto
 Summary: This is a test.
 
