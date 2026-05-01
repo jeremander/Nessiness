@@ -1,3 +1,5 @@
+- Be more precise about timestamps on post?
+  - Distinguish created time from last edited time. Use Git for the latter?
 - Remove existing auth stuff in favor of ATProto?
   - (Old) Login features
     - Change e-mail address
