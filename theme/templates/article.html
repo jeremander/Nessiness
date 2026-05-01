@@ -97,3 +97,7 @@
   {% include "partial/isso.html" %}
 </article>
 {% endblock %}
+
+{% block additional_js %}
+<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/atproto.js"></script>
+{% endblock %}

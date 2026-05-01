@@ -146,7 +146,8 @@ def insert_standard_site_document_link(path: str, context: dict[str, Any]) -> No
     rkey = get_rkey_for_article(article, pub_prefix)
     at_uri = f'at://{did}/{DOCUMENT_NSID}/{rkey}'
     comment = '<!-- link to site.standard.document for ATProto verification -->'
-    link_tag = f'<link rel="{DOCUMENT_NSID}" href="{at_uri}"/>'
+    pds_url = context.get('ATPROTO_PDS_URL', '')
+    link_tag = f'<link rel="{DOCUMENT_NSID}" href="{at_uri}" data-pds="{pds_url}"/>'
     content = content.replace('</head>', f'{comment}\n{link_tag}\n</head>', 1)
     p.write_text(content)
 

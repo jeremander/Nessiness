@@ -135,6 +135,8 @@ ATPROTO_PUBLICATION_URL = 'at://did:plc:jypsryjwkklic3bgem5gticy/site.standard.p
 ATPROTO_DID = 'did:plc:jypsryjwkklic3bgem5gticy'
 # prefix to use for every document rkey
 ATPROTO_PUB_PREFIX = 'nessiness'
+# URL of ATproto PDS
+ATPROTO_PDS_URL = 'https://pioppino.us-west.host.bsky.network'
 
 EXTRA_PATH_METADATA = {
     'extra/.nojekyll': {'path': '.nojekyll'},
